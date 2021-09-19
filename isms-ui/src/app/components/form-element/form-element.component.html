@@ -1,0 +1,223 @@
+<ng-container *ngIf="type == formElementTypes.UPLOADER">
+  <mat-accordion>
+    <mat-expansion-panel
+      (click)="_toggleImageExpand($event)"
+      [matTooltip]="(imgSubject | async) ? 'بزرگنمایی و حذف' : ''"
+      #mep="matExpansionPanel"
+                         hideToggle
+                         style="margin-top: 5px;">
+      <mat-expansion-panel-header style="padding-left: 16px; padding-right: 16px;">
+        <mat-panel-title class="align-middle">
+          <span class="align-middle" [style]="{'padding': (imgSubject | async) ? '9px' : '0px'}">{{title}}</span>
+          <!--[labelText]="title"-->
+        </mat-panel-title>
+        <mat-panel-description class="text-end" style="direction: ltr">
+          <div *ngIf="imgSubject | async"
+               #menuTrigger="matMenuTrigger"
+               [matMenuTriggerFor]="clickHoverMenu"
+               [ngStyle]="{'background-image': 'url(' + (imgSubject | async) + ')'}"
+               class="m-0 p-0 text-center"
+               style="pointer-events: all; background-size: cover; height: 38px; width: 38px; border-radius: 16px; border: 1px solid rgb(224 224 224);">
+          </div>
+          <mat-icon *ngIf="!(imgSubject | async)">image</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-file-upload *ngIf="!(imgSubject | async)"
+        [selectButtonText]="'انتخاب کنید'"
+        [selectFilesButtonType]="'button'"
+        [uploadButtonText]="'ارسال'"
+        [uploadButtonType]="'submit'"
+        [allowMultipleFiles]="false"
+        [showUploadButton]="false"
+        [customSvgIcon]="'close_custom'"
+        [acceptedTypes]="uploaderFormats"
+        (uploadClicked)="onUploadClicked($event)"
+        (selectedFilesChanged)="onSelectedFilesChanged($event)">
+      </mat-file-upload>
+<!--      <div *ngIf="imgSubject | async"-->
+<!--           [ngStyle]="{'background-image': 'url(' + (imgSubject | async) + ')'}"-->
+<!--           class="my-2 p-2 text-center"-->
+<!--           style="background-size: cover; height: 64px; width: 64px; border-radius: 16px; border: 1px solid rgb(224 224 224);">-->
+<!--      </div>-->
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-menu #clickHoverMenu="matMenu" menuTrigger style="padding: 0px">
+    <button class="btn btn-link" (click)="onSelectedFileDelete()"
+            matTooltip="حذف">
+    <div *ngIf="imgSubject | async"
+         [ngStyle]="{'background-image': 'url(' + (imgSubject | async) + ')'}"
+         class="m-0 p-0 text-center"
+         style="pointer-events: all; background-size: cover; height: 256px; width: 256px; border-radius: 16px; border: 1px solid rgb(224 224 224);">
+    </div>
+    </button>
+  </mat-menu>
+</ng-container>
+
+<ng-container *ngIf="type == formElementTypes.TEXTAREA || type == formElementTypes.TEXTAREA.toString()">
+  <mat-form-field appearance="outline"
+                  [hideRequiredMarker]="!required"
+                  style="width: 100%">
+    <mat-label>{{title}}</mat-label>
+    <textarea [maxlength]="maxLength"
+              [rows]="layout['rowCount']"
+           [(ngModel)]="objValue"
+           (input)="onTextChange($event)"
+           (keypress)="numberOnly($event)"
+              matInput appearance="outline" [required]="required"></textarea>
+    <mat-error *ngIf="isRequired()">الزامی است</mat-error>
+  </mat-form-field>
+</ng-container>
+
+<ng-container *ngIf="type == formElementTypes.TEXT || type == formElementTypes.TEXT.toString()">
+  <mat-form-field appearance="outline"
+                  [hideRequiredMarker]="!required"
+                  style="width: 100%">
+    <mat-label>{{title}}</mat-label>
+    <input type="text" [maxlength]="maxLength"
+           [(ngModel)]="objValue"
+           (input)="onTextChange($event)"
+           (keypress)="numberOnly($event)"
+           matInput appearance="outline" [required]="required">
+    <mat-error *ngIf="isRequired()">الزامی است</mat-error>
+  </mat-form-field>
+</ng-container>
+
+<ng-container *ngIf="type == formElementTypes.BUTTON || type == formElementTypes.BUTTON.toString()">
+  <button class="btn btn-secondary">{{title}}</button>
+</ng-container>
+
+<ng-container *ngIf="type == formElementTypes.NUMBER">
+  <mat-form-field appearance="outline"
+                  [hideRequiredMarker]="!required"
+                  style="width: 100%">
+    <mat-label>{{title}}</mat-label>
+    <input type="number" [maxLength]="maxLength" [(ngModel)]="objValue" [mask]="mask"
+           (input)="onNumberChange($event)"
+           matInput appearance="outline" [required]="required">
+    <mat-error *ngIf="isRequired()">الزامی است</mat-error>
+    <!--<button matSuffix mat-icon-button aria-label="link">
+      <mat-icon>link</mat-icon>
+    </button>-->
+  </mat-form-field>
+</ng-container>
+
+<ng-container *ngIf="type == formElementTypes.MULTI_SELECT">
+  <div class="container-fluid px-0 mb-2">
+    <mat-label>{{title}}
+      <span *ngIf="required" aria-hidden="true"
+            class="mat-placeholder-required mat-form-field-required-marker ng-tns-c65-3 ng-star-inserted"> *</span>
+    </mat-label>
+    <mat-selection-list #matSelectionListCtrl [style.max-height.px]="height"
+                        [(ngModel)]="objValue"
+                        [required]="required"
+                        (selectionChange)="onMultiSelectOptionChange($event)">
+      <mat-list-option [value]="-1" >
+        همه
+      </mat-list-option>
+      <mat-list-option *ngFor="let item of (listSubject | async)" [value]="item.value">
+        {{item.title}}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="type == formElementTypes.SELECT">
+  <div class="container-fluid px-0 mb-0">
+    <mat-form-field appearance="outline"
+                    [hideRequiredMarker]="!required"
+                    style="width: 100%">
+      <mat-label>{{title}}</mat-label>
+      <mat-select [(ngModel)]="temp"
+                  #matSelectionCtrl
+                  (selectionChange)="onSelectChange($event)"
+                  [required]="required">
+        <mat-option *ngIf="hasNone" [value]="-2" aria-checked="true">
+          هیچکدام
+        </mat-option>
+        <mat-option *ngIf="hasAll" [value]="-1">
+          همه
+        </mat-option>
+        <mat-option *ngFor="let item of (listSubject | async)" [value]="item.value">
+          {{item.title}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="isRequired()">الزامی است</mat-error>
+    </mat-form-field>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="type == formElementTypes.CHECKBOX">
+  <div class="container-fluid px-0 mb-2">
+    <mat-label>{{title}}
+      <span *ngIf="required" aria-hidden="true"
+            class="mat-placeholder-required mat-form-field-required-marker ng-tns-c65-3 ng-star-inserted"> *</span>
+    </mat-label>
+    <section class="mt-3">
+      <div class="container-fluid m-0 p-0">
+        <div class="row m-0 p-0">
+          <div class="col" *ngFor="let item of (listSubject | async)">
+            <mat-checkbox class="example-margin px-4"
+                          (change)="onCheckboxChange($event)"
+                          [checked]="this.value && item.value && this.value.indexOf(item.value) >= 0"
+                          [value]="item.value">{{item.title}}</mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="type == formElementTypes.RADIO">
+  <div class="container-fluid px-0 mb-2">
+    <mat-label>{{title}}
+      <span *ngIf="required" aria-hidden="true"
+            class="mat-placeholder-required mat-form-field-required-marker ng-tns-c65-3 ng-star-inserted"> *</span>
+    </mat-label>
+    <section class="mt-3">
+      <div class="container-fluid m-0 p-0">
+        <div class="row m-0 p-0">
+          <div class="col">
+<!--            class="example-margin px-4"
+                          (change)="onCheckboxChange($event)"-->
+            <mat-radio-group >
+              <mat-radio-button style="padding-left: 16px;" *ngFor="let item of (listSubject | async)"
+                                [checked]="this.value && item.value && this.value.indexOf(item.value) >= 0"
+                                [value]="item.value">{{item.title}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="type >= formElementTypes.MILADI_DATE &&
+  type <= formElementTypes.JALALI_DATE_TIME">
+<!--  <div class="container-fluid px-0 mb-2" >-->
+<!--    <lable class="form-label text-center" >{{title}}</lable>-->
+    <mat-form-field appearance="outline"
+                    [hideRequiredMarker]="!required"
+                    style="width: 100%">
+      <mat-label>{{title}}</mat-label>
+      <input type="text" [maxlength]="10" [minlength]="10"
+             [mask]="'0000/00/00'"
+             (click)="datePickerComponent.api.open()"
+             [(ngModel)]="objValue"
+             (input)="onChangeDate($event)"
+             (keypress)="numberOnly($event)"
+             (paste)="onPasteDate($event)"
+             matInput appearance="outline" [required]="required">
+      <mat-error *ngIf="isRequired()">الزامی است</mat-error>
+    </mat-form-field>
+    <dp-date-picker #datePickerComponent matInput appearance="outline"
+                    dir="rtl"
+                    [config]="datePickerConfig"
+                    [(ngModel)]="temp"
+                    (onChange)="changeDate(type, $event)"
+                    [mode]="getModeOfDate(type)"
+                    theme="dp-material">
+    </dp-date-picker>
+<!--  </div>-->
+</ng-container>

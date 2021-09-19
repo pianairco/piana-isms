@@ -1,0 +1,19 @@
+.modal-background {
+  background-color: #bf9be5;
+  background-size: cover;
+  background-image: url('../../../assets/images/login-bg.jpg');
+}
+
+.field {
+  opacity: 1 !important;
+}
+
+/*.modal-card {*/
+/*  width: 400px;*/
+/*}*/
+
+.example-full-width {
+  width: 100%;
+}
+
+

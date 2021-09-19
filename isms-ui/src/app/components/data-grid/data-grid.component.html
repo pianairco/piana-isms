@@ -1,0 +1,96 @@
+<mat-paginator [length]="allRows"
+               #paginator
+               [pageSize]="currentPageSize"
+               (page)="change($event, paginator, endPaginator)"
+               [pageSizeOptions]="pageSizeOptions" class="mat-elevation-z8">
+</mat-paginator>
+<table mat-table [dataSource]="dataSourceSubject | async" class="mat-elevation-z8"
+       multiTemplateDataRows
+       [class.mb-4]="(this.dataSourceSubject | async).length == -1">
+  <!--- Note that these columns can be defined in any order.
+The actual rendered columns are set as a property on the row definition" -->
+
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                    [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)"
+                    [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- Position Column -->
+  <ng-container *ngFor="let columnDef of columnDefs" [matColumnDef]="columnDef.name">
+    <th mat-header-cell *matHeaderCellDef>
+      <a *ngIf="columnDef.sortable" class="btn btn-sm btn-outline-link"
+         (click)="fetchBySort(columnDef)">
+        <i  class="fa mx-2"
+            [ngStyle]="{color: (sort.columnName != columnDef.name || (sort.columnName == columnDef.name && sort.direction == 'none')) ? '#b4bac3' : '#7788FA'}"
+            [class.fa-sort]="sort.columnName != columnDef.name || (sort.columnName == columnDef.name && sort.direction == 'none')"
+            [class.fa-sort-up]="sort.columnName == columnDef.name && sort.direction == 'asc'"
+            [class.fa-sort-down]="sort.columnName == columnDef.name && sort.direction == 'desc'"></i>
+        <span >{{columnDef.title}}</span>
+      </a>
+      <span *ngIf="!columnDef.sortable">{{columnDef.title}}</span>
+    </th>
+    <td mat-cell *matCellDef="let element"
+        [matTooltip]="columnDef['pipe'] == 'slice' && element[columnDef.name].length > columnDef['x_end'] ? element[columnDef.name] : ''">
+      <ng-container [ngSwitch]="columnDef['pipe'] ? columnDef['pipe'] : 'x_row'">
+        <ng-container *ngSwitchCase="'thousandSeparator'">
+          {{element[columnDef.name] | thousandSeparator}}
+        </ng-container>
+        <ng-container *ngSwitchCase="'slice'">
+          {{element[columnDef.name] | slice:columnDef['x_start']:columnDef['x_end']}}{{element[columnDef.name].length > columnDef['x_end'] ? '...' : ''}}
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          {{element[columnDef.name]}}
+        </ng-container>
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element"
+        [attr.colspan]="displayedColumns.length">
+      <div class="element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <div class="element-description container-fluid">
+          <div class="row">
+            <div class="col col-12 my-1 text-end">
+              <button class="btn btn-sm btn-outline-secondary mx-1">ویرایش</button>
+              <button class="btn btn-sm btn-outline-secondary">حذف</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="highlight(row)"
+      class="element-row"
+      [ngClass]="{'highlight': selectedRowIndex == row['ROW_NUM']}"></tr>
+  <ng-container >
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']"
+        class="detail-row"></tr>
+  </ng-container>
+</table>
+<div class="container-fluid m-0 p-0 if-selected"
+     [@detailExpand]="selection.hasValue() ? 'expanded' : 'collapsed'">
+  &nbsp;
+</div>
+<mat-paginator *ngIf="(this.dataSourceSubject | async).length > 0 && allRows > 0"
+               class="mat-elevation-z8 mb-4"
+               #endPaginator
+               (page)="change($event, endPaginator, paginator)" [pageSize]="currentPageSize"
+               [length]="allRows" [pageSizeOptions]="pageSizeOptions" >
+</mat-paginator>

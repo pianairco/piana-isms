@@ -1,0 +1,44 @@
+<div class="card-image has-text-centered"
+     [ngStyle]="{ 'max-width': maxWidth != null ? maxWidth : 'unset',
+          'max-height': maxHeight != null ? maxHeight : 'unset' }">
+  <figure class="image {{!res ? 'is-4by3' : res}}">
+    <img *ngIf="item.image" [src]="item.image"
+         [ngStyle]="{ 'max-width': maxWidth != null ? maxWidth : 'unset',
+          'max-height': maxHeight != null ? maxHeight : 'unset' }"/>
+    <img [src]="image" alt="Placeholder image" *ngIf="!item.image && image"
+         [ngStyle]="{ 'max-width': maxWidth != null ? maxWidth : 'unset',
+          'max-height': maxHeight != null ? maxHeight : 'unset' }">
+    <img [src]="images[idx]" alt="Placeholder image" *ngIf="!item.image && images"
+         [ngStyle]="{ 'max-width': maxWidth != null ? maxWidth : 'unset',
+          'max-height': maxHeight != null ? maxHeight : 'unset' }">
+    <img [src]="unknownURL" alt="Placeholder image" *ngIf="!item.image && !images && !image"
+         [ngStyle]="{ 'max-width': maxWidth != null ? maxWidth : 'unset',
+          'max-height': maxHeight != null ? maxHeight : 'unset' }">
+  </figure>
+  <div class="columns is-mobile is-vcentered is-overlay is-multiline" style="margin: 0px;">
+    <div class="column is-full" style="height: 20%;">
+      <div *ngIf="isUpload" class="columns" style="padding: 0px; margin: 0px;">
+        <div class="column" style="padding: 0px; margin: 0px;">
+          <input #fileInput  type="file" (change)="handleFileUpload($event)"
+                 class="is-white fa fa-angle-right" style="display: none" />
+          <i *ngIf="image" (click)="selectImage()" class="fa fa-edit picture-upload-plus" aria-hidden="true"></i>
+          <i *ngIf="!image" (click)="selectImage()" class="fa fa-plus picture-upload-plus"
+             aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <div class="column is-full is-info" style="height: 60%;">
+      <div class="columns is-mobile is-vcentered is-multiline picture-box-center-control-container"
+           *ngIf="images && images.length > 1" style="margin-top: auto; margin-bottom: auto;">
+        <div class="column is-narrow">
+          <button (click)="next()" class="button is-white fa fa-angle-right" style="opacity: 0.4;"></button>
+        </div>
+        <div class="column">&nbsp;</div>
+        <div class="column is-narrow">
+          <button (click)="prev()" class="button is-white is-transparent fa fa-angle-left" style="opacity: 0.4;"></button>
+        </div>
+      </div>
+    </div>
+    <div class="column is-full is-info " style="height: 20%;"></div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+database:
+  show-sql: true
+  pool-size: 5
+  support:
+    url: jdbc:h2:file:./data/support
+#    url: jdbc:h2:mem:site
+#    username: asf
+    username: support
+    password: s
+    driverClassName: org.h2.Driver
+#    driverClassName: oracle.jdbc.driver.OracleDriver

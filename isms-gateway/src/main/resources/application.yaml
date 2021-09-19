@@ -1,0 +1,13 @@
+server:
+  port: 80
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: vavishka
+          uri: http://localhost:8081
+          predicates:
+            - Header=Host2, vavishka.ir
+          filters:
+            - AddHeader=firstName, ali
+

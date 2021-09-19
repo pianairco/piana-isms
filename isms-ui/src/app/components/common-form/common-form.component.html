@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col col-12">
+      <div class="mt-2 p-2 rha-filter-box">
+        <div class="row m-0 p-0" *ngIf="(configSubject | async)">
+          <div class="col-12 m-0 p-0">
+            <app-form [layout]="config['layout']" [(model)]="config['layoutValues']" (onBtnClick)="btnClick($event)"></app-form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

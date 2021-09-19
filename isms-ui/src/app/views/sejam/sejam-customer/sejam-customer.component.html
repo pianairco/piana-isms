@@ -1,0 +1,58 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" >سرمایه گذار سجامی</a>
+  </li>
+</ul>
+
+<div class="container-fluid py-5 shadow-lg" style="border: 1px solid #dee2e6; border-top: none;">
+  <div class="row justify-content-center">
+    <div class="col col-md-6">
+      <div class="mb-3">
+        <ng-container appearance="outline">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>شناسه ملی</mat-label>
+            <input type="text" required [(ngModel)]="model.nationalCode" [mask]="'000-000000-0'"
+                   [disabled]="step == 'complete'" matInput appearance="outline" >
+          </mat-form-field>
+        </ng-container>
+      </div>
+
+      <div class="mb-3" *ngIf="step == 'complete'">
+        <ng-container appearance="outline">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>کد تایید</mat-label>
+            <input type="text" required [(ngModel)]="model.otp" [mask]="'00000'"
+                   matInput appearance="outline" >
+          </mat-form-field>
+        </ng-container>
+      </div>
+
+      <div class="mb-3">
+        <button *ngIf="step == 'requestOtp' && model.nationalCode.length < 10"
+                type="button" class="btn btn-outline-primary" mat-raised-button color="primary"
+                placement="right"
+                popoverTitle="اعلان"
+                ngbPopover="ورود کد ملی 10 رقمی الزامی می باشد">
+          <span *ngIf="!wait">درخواست کد تایید</span>
+        </button>
+        <button *ngIf="step == 'requestOtp' && model.nationalCode.length == 10"
+                class="btn btn-outline-primary" mat-raised-button color="primary"
+                (click)="requestOtp()" [disabled]="wait">
+          <mat-spinner  *ngIf="wait"></mat-spinner>
+          <span *ngIf="!wait">درخواست کد تایید</span>
+        </button>
+        <button *ngIf="step == 'complete'" class="btn btn-outline-primary" mat-raised-button color="primary"
+                (click)="complete()" [disabled]="wait">
+          <mat-spinner  *ngIf="wait"></mat-spinner>
+          <span *ngIf="!wait">تکمیل ثبت نام</span>
+        </button>
+        <button *ngIf="step == 'complete'" class="btn btn-outline-warning mx-2" mat-raised-button color="warn"
+                (click)="toRequestOtp()" [disabled]="wait">
+          <span>ثبت مجدد</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+

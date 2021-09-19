@@ -1,0 +1,4 @@
+POST http://localhost/test/api/zarinpal/test/redirect
+
+###
+GET https://diana.ir/api/modules/general/menu/list

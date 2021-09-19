@@ -1,0 +1,2 @@
+GET https://localhost:8443/api/modules/bond/calc
+tenant: 11701

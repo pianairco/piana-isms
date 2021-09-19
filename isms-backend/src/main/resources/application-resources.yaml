@@ -1,0 +1,10 @@
+static-resource:
+  paths:
+    '[/**]':
+      - classpath:/
+      - classpath:/multishop-ui/
+      - classpath:/public/
+      - classpath:/static/
+      - file:///c:/upload-dir/
+    '[/assets]':
+      - file:///c:/upload-dir/

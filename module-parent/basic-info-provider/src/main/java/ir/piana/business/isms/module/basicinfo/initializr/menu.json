@@ -1,0 +1,14 @@
+[
+  {
+    "id": 5,
+    "parent_id": null,
+    "title": "اطلاعات پایه",
+    "link": "basic-info"
+  },
+  {
+    "id": 500,
+    "parent_id": 5,
+    "title": "سرمایه گذار جدید",
+    "link": "common-form:CreateCustomer"
+  }
+]

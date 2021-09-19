@@ -1,0 +1,74 @@
+<div class="columns is-multiline">
+  <ng-container *ngFor="let field of config.fields">
+    <div class="column {{'is-' + field.size}}" >
+      <ng-container *ngIf="field.type === 'empty'">&nbsp;</ng-container>
+      <ng-container *ngIf="field.type != 'empty'">
+        <label class="label">
+          <ng-container *ngIf="field.type === 'checkbox'">
+            <input type="checkbox" [(ngModel)]="config.values[field.name]">
+          </ng-container>
+          {{field.title}}
+        </label>
+        <div class="control">
+          <ng-container *ngIf="field.type === 'string'">
+            <ng-container *ngIf="!field.injectable">
+              <input class="input" type="text" [(ngModel)]="config.values[field.name]">
+            </ng-container>
+            <ng-container *ngIf="field.injectable">
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input" type="text" [(ngModel)]="config.values[field.name]">
+                  <span class="icon is-small is-left is-injection"
+                        [class.is-active]="injectableMap[field.name]"
+                        (click)="injectableClick(field)">
+                    <i class="fas" [class.fa-expand]="!injectableMap[field.name]"></i>
+                    <i class="fas" [class.fa-compress]="injectableMap[field.name]"></i>
+                  </span>
+                </p>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="field.type === 'multi-select'">
+            <div class="select is-multiple">
+              <select multiple size="4" [(ngModel)]="config.values[field.name]">
+                <option *ngFor="let s of (selectableMap[field.name] | async)" [value]="s['id']">{{s['name']}}</option>
+              </select>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="field.type === 'select'">
+            <div class="select is-fullwidth">
+              <select [(ngModel)]="config.values[field.name]">
+                <option *ngFor="let s of (selectableMap[field.name] | async)" [value]="s['id']">{{s['name']}}</option>
+              </select>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="field.type === 'textarea'">
+            <textarea class="textarea" rows="4"
+                      [(ngModel)]="config.values[field.name]"></textarea>
+          </ng-container>
+          <ng-container *ngIf="field.type === 'date'">
+            <dp-date-picker
+              dir="rtl"
+              [(ngModel)]="config.values[field.name]"
+              mode="day"
+              theme="dp-material">
+            </dp-date-picker>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="lastEmpty">
+    <div class="column {{'is-' + lastEmpty}}" >&nbsp;</div>
+  </ng-container>
+  <div class="column is-6">
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link" (click)="okClick()">جستجو</button>
+      </div>
+      <div class="control">
+        <button class="button is-link is-light">انصراف</button>
+      </div>
+    </div>
+  </div>
+</div>

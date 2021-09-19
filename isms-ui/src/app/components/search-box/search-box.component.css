@@ -1,0 +1,16 @@
+.is-injection {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+.is-injection:hover {
+  color: #b9dbff !important;
+}
+
+.is-injection:active {
+  background-color: #b9dbff !important;
+}
+
+.is-injection.is-active {
+  background-color: #85b3e3 !important;
+}

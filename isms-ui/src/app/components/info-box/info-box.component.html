@@ -1,0 +1,19 @@
+<div class="card">
+  <app-picture-box [res]="'is-2by1'" [image]="infoBoxModel.image"></app-picture-box>
+  <div class="card-content">
+    <div class="media">
+      <div class="media-content">
+        <p class="title is-4">{{infoBoxModel.title}}</p>
+      </div>
+    </div>
+    <div class="content">
+      {{infoBoxModel.description}}
+    </div>
+  </div>
+
+  <footer class="card-footer" *ngIf="(authService.authSubject | async).isAdmin">
+    <button class="card-footer-item button is-white">
+      <i class="fas fa-edit" style="color: #357e25"></i>
+    </button>
+  </footer>
+</div>

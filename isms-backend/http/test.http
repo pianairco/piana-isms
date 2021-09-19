@@ -1,0 +1,55 @@
+POST http://localhost:8081/login
+Host: vavishka.ir
+username: admin
+password: 123
+JSESSIONID: 8BB57FBD4EC334BE42EE4F24B50D27F3
+
+###
+GET https://piana.ir:8443/test
+Host: piana.ir
+JSESSIONID: 8BB57FBD4EC334BE42EE4F24B50D27F3
+###
+POST https://piana.ir:8443/api/app-info
+Content-Type: application/json;charset=UTF-8
+Host: piana.ir
+
+{
+}
+###
+POST https://piana.ir:8443/api/sign-in/sub-domain/set-token
+content-type: application/json
+Host: piana.ir
+
+{
+  "accessToken": "ya29.A0AfH6SMC48F5BfS8dOmn1wFq3tjRYGqdq5yvZrGQ_PunUMXWmdXWtOWxTtZWiIaSjpuat09QX1kVRtP3nPhLY0qCvEYr5shFG8hsq5u7tqjNeQPkEqhkQeS6v_MfLwduJgBe5zVawSK34QfwbAHyLiesYrrS3QNs",
+  "uuid": "21c07ebd-d2b3-4134-b0e8-48cf019f8e9b"
+}
+###
+GET https://localhost:8443/product/gq0tV7wenK3O235yQqLXApnuLkByca4WWw9XUGhVWwgYat2LXCsfAXLqBA4qXfuh.jpeg
+Host: shop.piana.ir
+
+###
+
+POST https://piana.ir:8443/api/sign-in/sub-domain/set-principal
+Content-Type: APPLICATION/JSON
+auth-type: form
+
+{
+  "uuid": "sdjkbkjsdkjbsdk"
+}
+
+###
+GET https://piana.ir:8443/api/modules/site/baya
+Host: piana.ir
+
+###
+GET https://piana.ir:8443/api/modules/site/baya/save-categories-images
+Host: piana.ir
+
+###
+GET https://piana.ir:8443/api/modules/site/baya/save-piana
+Host: piana.ir
+
+###
+GET https://piana.ir:8443/async/test
+Host: piana.ir

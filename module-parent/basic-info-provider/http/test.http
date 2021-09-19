@@ -1,0 +1,7 @@
+GET https://piana.ir:8443/api/modules/general/menu
+
+###
+GET https://piana.ir:8443/api/auth/test
+
+###
+GET https://piana.ir:8443/api/ddd/sd

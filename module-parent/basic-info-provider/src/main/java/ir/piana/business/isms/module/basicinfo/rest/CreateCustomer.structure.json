@@ -1,0 +1,179 @@
+{
+  "title": "سرمایه گذار جدید",
+  "type": "form",
+  "layout": [
+    {
+      "layoutSize": "12",
+      "type": "layout",
+      "class": "align-items-center",
+      "children": [
+        {
+          "layoutSize": "6",
+          "type": "MULTI_SELECT",
+          "flat": true,
+          "field": "x_branches",
+          "title": "شعبه",
+          "value": [1],
+          "required": true,
+          "listApi": "api/modules/report/layout/branches",
+          "height": "200"
+        },
+        {
+          "type": "layout",
+          "layoutSize": "6",
+          "layout": [
+            {
+              "layoutSize": "12",
+              "children": [
+                {
+                  "layoutSize": "6",
+                  "type": "JALALI_DATE",
+                  "field": "x_from_date",
+                  "title": "تاریخ از",
+                  "value": "1399/07/01",
+                  "copyIfNull": "x_to_date",
+                  "required": true
+                },
+                {
+                  "layoutSize": "6",
+                  "type": "JALALI_DATE",
+                  "field": "x_to_date",
+                  "title": "تاریخ تا",
+                  "value": "1399/07/01",
+                  "required": true
+                },
+                {
+                  "layoutSize": "6",
+                  "type": "UPLOADER",
+                  "formats": ".jpg",
+                  "field": "x_user_picture",
+                  "title": "تصویر سرمایه گذار",
+                  "max-width": 256,
+                  "max-height": 256,
+                  "required": false
+                },
+                {
+                  "layoutSize": "6",
+                  "type": "TEXT",
+                  "numeric": true,
+                  "field": "x_to_voucher_no",
+                  "title": "شماره سند تا",
+                  "required": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "layoutSize": "3",
+          "type": "TEXT",
+          "numeric": true,
+          "field": "x_from_gl_number",
+          "title": "کل از",
+          "required": false,
+          "minLength": 1,
+          "maxLength": 4
+        },
+        {
+          "layoutSize": "3",
+          "type": "TEXT",
+          "numeric": true,
+          "field": "x_to_gl_number",
+          "title": "کل تا",
+          "required": false,
+          "minLength": 1,
+          "maxLength": 4
+        },
+        {
+          "layoutSize": "3",
+          "type": "TEXT",
+          "numeric": true,
+          "field": "x_from_voucher_temp_num",
+          "title": "شماره موقت از",
+          "required": false,
+          "minLength": 1,
+          "maxLength": 10
+        },
+        {
+          "layoutSize": "3",
+          "type": "TEXT",
+          "numeric": true,
+          "field": "x_to_voucher_temp_num",
+          "title": "شماره موقت تا",
+          "required": false,
+          "minLength": 1,
+          "maxLength": 10
+        },
+        {
+          "layoutSize": "3",
+          "type": "TEXT",
+          "numeric": true,
+          "field": "x_from_remainder",
+          "title": "مانده از",
+          "required": false,
+          "minLength": 1,
+          "maxLength": 18
+        },
+        {
+          "layoutSize": "3",
+          "type": "TEXT",
+          "numeric": true,
+          "field": "x_to_remainder",
+          "title": "مانده تا",
+          "required": false,
+          "minLength": 1,
+          "maxLength": 18
+        },
+        {
+          "layoutSize": "6",
+          "type": "SELECT",
+          "flat": true,
+          "field": "x_remainder",
+          "title": "مانده",
+          "value": ["x_has_remain", "x_debit", "x_credit"],
+          "required": true,
+          "list": [{"title":"مانده دار","value":"x_has_remain"},{"title":"بدهکار","value":"x_debit"},{"title":"بستانکار","value":"x_credit"}],
+          "hasAll": true,
+          "hasNone": true
+        },
+        {
+          "layoutSize": "12",
+          "type": "CHECKBOX",
+          "flat": true,
+          "field": "x_options",
+          "title": "انتخاب ویژگی",
+          "value": ["x_six_column_mode"],
+          "required": true,
+          "listApi": "api/modules/report/layout/voucher-options",
+          "height": "200"
+        },
+        {
+          "layoutSize": "12",
+          "type": "CHECKBOX",
+          "flat": true,
+          "field": "x_fiscal_years",
+          "title": "سال مالی",
+          "listApi": "api/modules/report/layout/fiscal-years-options",
+          "height": "200",
+          "class": "mb-4"
+        }
+      ]
+    },
+    {
+      "layoutSize": "12",
+      "type": "layout",
+      "class": "justify-content-between align-items-center",
+      "children": [
+        {
+          "layoutSize": "2",
+          "left": " 10",
+          "type": "btn",
+          "url": "api/modules/basicinfo/create-customer/save",
+          "navigateOnSuccess": "tile/reports/general-ledger",
+          "action": "post",
+          "title": "ذخیره"
+        }
+      ]
+    }
+  ]
+}

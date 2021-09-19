@@ -1,0 +1,3 @@
+GET http://localhost/test
+Host: vavishka.ir
+Host2: vavishka.ir

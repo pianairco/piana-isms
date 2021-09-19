@@ -1,0 +1,21 @@
+forms:
+  defs:
+    user:
+      add-user:
+        layout:
+          style: 'padding: 20px 20%; '
+        fields:
+          firstName: { title: "نام", type: "text", size: "1" }
+          lastName: { title: "نام خانوادگی", type: "text", size: "1" }
+          username: { title: "شناسه", type: "text", size: "1" }
+          password: { title: "رمز عبور", type: "password", size: "1", placeholder: "رمز" }
+          repeatPassword: { title: "تکرار رمز عبور", type: "password", size: "1", placeholder: "تکرار رمز" }
+          isActive: { title: "فعال", type: "boolean", size: "1", default: true }
+          isSupporter: { title: "پشتیبان صندوق", type: "boolean", size: "1", default: false }
+          isManager: { title: "راهبر", type: "boolean", size: "1", default: false }
+        buttons:
+          save: { title: "ذخیره", size: "1", class: "is-medium is-success", activities: [
+            { key: "url", value: "/api/addUser" }
+          ]}
+
+

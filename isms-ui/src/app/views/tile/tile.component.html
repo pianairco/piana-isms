@@ -1,0 +1,12 @@
+<ng-container *ngIf="!(shareStateService.editModeSubject | async).editMode">
+  <app-topbar></app-topbar>
+  <app-notification></app-notification>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</ng-container>
+
+<ng-container *ngIf="(shareStateService.editModeSubject | async).editMode">
+  <app-notification></app-notification>
+  <router-outlet></router-outlet>
+</ng-container>
+

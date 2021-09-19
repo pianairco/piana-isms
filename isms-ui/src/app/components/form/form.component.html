@@ -1,0 +1,21 @@
+<div class="container-fluid" [class.m-0]="hasParent" [class.p-0]="hasParent">
+  <ng-container *ngFor="let row of layout">
+    <div class="row {{row.class}}" [class.m-0]="hasParent" [class.p-0]="hasParent">
+      <div *ngFor="let col of row.children" class="col col-md-{{col.layoutSize}} col-sm-12 {{col.class}}"
+           [class.px-0]="col.type == 'layout'"
+           [style]="{'padding-bottom': (col.type == 'UPLOADER') ? '18px' : '0px'}">
+        <ng-container *ngIf="col.type == 'layout'">
+          <app-form [layout]="col.layout" [(model)]="model" (onBtnClick)="childClicked($event)" [hasParent]="true"></app-form>
+        </ng-container>
+        <ng-container *ngIf="col.type == 'btn'">
+          <button class="btn btn-success" (click)="btnClick(col)">{{col.title}}</button>
+        </ng-container>
+        <ng-container *ngIf="col.type != 'layout' && col.type != 'btn'">
+          <app-form-element [(value)]="model[col.field]"
+                            [layout]="col"
+                            [list]="list[col.field]"></app-form-element>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>

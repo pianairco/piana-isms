@@ -1,0 +1,8 @@
+mat-selection-list {
+  max-height: 150px;
+  overflow: auto;
+}
+
+.example-header-image {
+  background-size: cover;
+}
