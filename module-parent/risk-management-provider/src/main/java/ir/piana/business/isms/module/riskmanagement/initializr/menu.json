@@ -1,0 +1,14 @@
+[
+  {
+    "id": 6,
+    "parent_id": null,
+    "title": "مدیریت ریسک",
+    "link": "risk-management"
+  },
+  {
+    "id": 600,
+    "parent_id": 6,
+    "title": "تنظیم پارامترهای پیامد",
+    "link": "consequence-parameters"
+  }
+]

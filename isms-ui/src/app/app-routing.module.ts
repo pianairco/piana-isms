@@ -26,6 +26,9 @@ const routes: Routes = [
               { path: 'basic-info',
                 loadChildren: () => import('./views/basic-info/basic-info.module').then((m) => { return m.BasicInfoModule }).catch( err => console.log('Oh no!') )
               },
+              {
+                path: 'risk-management', loadChildren: () => import('./views/risk-management/risk-management.module').then(m => m.RiskManagementModule)
+              },
               { path: 'reports',
                 loadChildren: () => import('./views/reports-view/reports.module').then((m) => { return m.ReportsModule }).catch( err => console.log('Oh no!') )
               },

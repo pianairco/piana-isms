@@ -9,8 +9,8 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>auth</artifactId>
-	<name>auth</name>
+	<artifactId>risk-management-provider</artifactId>
+	<name>risk-management-provider</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -20,8 +20,32 @@
 	<dependencies>
 		<dependency>
 			<groupId>ir.piana.isms</groupId>
-			<artifactId>isms-common</artifactId>
+			<artifactId>risk-management</artifactId>
 			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>ir.piana.isms</groupId>
+			<artifactId>data</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.burningwave/core -->
+		<dependency>
+			<groupId>org.burningwave</groupId>
+			<artifactId>core</artifactId>
+			<version>8.21.2</version>
 		</dependency>
 	</dependencies>
 

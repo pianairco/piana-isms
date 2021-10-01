@@ -1,0 +1,3 @@
+GET https://piana.ir:8443/api/modules/riskmanagement/consequence-parameters/list
+
+###
