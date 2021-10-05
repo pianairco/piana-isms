@@ -10,7 +10,7 @@
   display: inline-block;
   width: 100%;
   padding-top: 0px;
-  transition: padding-right 0.3s ease;
+  transition: padding-right 0.3s linear;
 }
 @media screen and (min-width: 768px) {
   .page-wrapper .page-content {
@@ -37,7 +37,7 @@
   right: 0px;
 }
 .page-wrapper.toggled .page-content {
-  padding-right: 60px;
+  padding-right: 0px;
 }
 .page-wrapper .attribution {
   position: fixed;

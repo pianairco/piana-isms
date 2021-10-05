@@ -6,7 +6,10 @@ import {ConsequenceParametersComponent} from "./consequence-parameters/consequen
 const routes: Routes = [
   {
     path: '', component: RiskManagementComponent, children: [
-      { path: 'consequence-parameters', component: ConsequenceParametersComponent }
+      { path: 'settings', children: [
+          { path: 'consequence-parameters', component: ConsequenceParametersComponent }
+        ]
+      }
     ]
   }
 ];

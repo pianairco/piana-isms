@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -88,9 +85,21 @@ public abstract class BaseInitializer {
                             return m;
                         }).collect(
                                 Collectors.toMap(MenuModel::getId, Function.identity()));
+//                menuModelList.stream().filter()
                 menuModelList.stream().filter(m -> m.getParentId() != null).forEach(m -> {
-                    menuModelMap.get(m.getParentId()).getChildren().add(m);
-
+                    if(menuModelMap.containsKey(m.getParentId())) {
+                        menuModelMap.get(m.getParentId()).getChildren().add(m);
+                    } else {
+                        Optional<MenuModel> first = menuModelList.stream().filter(n -> m.getParentId().equals(n.getId())).findFirst();
+                        if(first.isPresent()) {
+                            if(!first.get().getType().equalsIgnoreCase("dropdown")) {
+                                first.get().setType("dropdown");
+                                first.get().setChildren(new ArrayList<>());
+                                menuModelMap.put(first.get().getId(), first.get());
+                            }
+                            first.get().getChildren().add(m);
+                        }
+                    }
                     if(m.getLink().contains(":")) {
                         String path = null;
                         String[] split = m.getLink().split(":");

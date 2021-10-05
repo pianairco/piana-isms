@@ -61,9 +61,13 @@ import {QueryCreatorDialogComponent} from "./query-creator/query-creator-dialog/
 import { SelectQueryComponent } from './query-creator/select-query/select-query.component';
 import {QueryCreatorService} from "./query-creator/query-creator.service";
 import {OptionQueryCreatorComponent} from "./query-creator/template/option-query-creator/option-query-creator.component";
+import {PianaDropdownComponent} from "./piana-dropdown/piana-dropdown.component";
+import {PianaSidebarComponent} from "./piana-sidebar/piana-sidebar.component";
 
 @NgModule({
   declarations: [
+    PianaDropdownComponent,
+    PianaSidebarComponent,
     DataGridComponent,
     InputMaskDirective,
     TopbarComponent,
@@ -93,6 +97,8 @@ import {OptionQueryCreatorComponent} from "./query-creator/template/option-query
     SelectQueryComponent
   ],
   exports: [
+    PianaDropdownComponent,
+    PianaSidebarComponent,
     DragDropModule,
     MatSidenavModule,
     MatFileUploadModule,

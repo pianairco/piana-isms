@@ -1,0 +1,119 @@
+<nav id="sidebar bg-piana-main" class="sidebar" [@slide]="getState2()">
+  <!--  [ngClass]="{'sidebar-bg' : hasBackgroundImage()}"-->
+  <div class="sidebar-content" >
+    <perfect-scrollbar
+      *ngIf="!sidebarservice.getSidebarState()"
+      style="padding-top: 0px;">
+      <div class="sidebar-header text-center">
+        <p style="color: white;" class="text-center">سامانه رایان هم افزا</p>
+      </div>
+
+      <div class="sidebar-profile" *ngIf="!sidebarservice.getSidebarState()">
+        <!--        <div class="user-pic">
+                  <img class="img-responsive img-rounded" src="assets/img/user.jpg" alt="User picture">
+                </div>-->
+        <div class="user-info">
+          <span class="user-name">
+            <span style="border: 1px solid #ddedfc; color: black; border-radius: 16px; padding-left: 10px; padding-bottom: 3px; padding-top: 3px; background-color: #FFD07A">
+              <i class="far fa-user" style="background-color: black; color: white; border-radius: 10px; padding: 3px; margin-left: 4px"></i>نام کاربری
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <!--<div class="sidebar-profile" *ngIf="!sidebarservice.getSidebarState()">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded" src="assets/img/user.jpg" alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">
+            <strong>{{(authService.authSubject | async).username}} خوش آمدید</strong>
+          </span>
+        </div>
+      </div>-->
+
+      <!--<div class="container p-0">
+        <div class="row p-0">
+          <div class="col col-12">
+            <div class="d-grid gap-2 py-0 px-3">
+              <button href="#" class="btn btn-sm py-0 my-btn px-1" style="border-radius: 26px;">میزان اعتبار بر اساس اپراتورها</button>
+            </div>
+          </div>
+        </div>
+      </div>-->
+
+      <div class="sidebar-menu" style="overflow: hidden">
+        <ul >
+          <ng-container *ngFor="let menu of menus" >
+            <li *ngIf="menu.type != 'dropdown'"
+                [ngClass]="{'active': menu.active , 'sidebar-dropdown':menu.type === 'dropdown' , 'header-menu':menu.type === 'header'}">
+              <span *ngIf="menu.type === 'header'">{{menu.title}}</span>
+              <a *ngIf="menu.type == 'dropdown'" (click)='toggle(menu)'>
+                <i class="{{menu.icon}}"></i>
+                <span>{{menu.title}}</span>
+                <span *ngIf="menu.badge" class="badge badge-pill" [ngClass]="menu.badge.class">{{menu.badge.text}}</span>
+              </a>
+              <a *ngIf="menu.type == 'simple' && menu.hasOwnProperty('link')"  [routerLink]="[menu['link']]">
+                <i class="{{menu.icon}}"></i>
+                <span>{{menu.title}}</span>
+                <span *ngIf="menu.badge" class="badge badge-pill" [ngClass]="menu.badge.class">{{menu.badge.text}}</span>
+              </a>
+              <!--<a *ngIf="menu.type !== 'header' && !menu.hasOwnProperty('link')"  (click)='toggle(menu)'>
+                <i class="{{menu.icon}}"></i>
+                <span>{{menu.title}}</span>
+                <span *ngIf="menu.badge" class="badge badge-pill" [ngClass]="menu.badge.class">{{menu.badge.text}}</span>
+              </a>-->
+            </li>
+            <ng-container *ngIf="menu.type === 'dropdown'">
+              <app-piana-dropdown [menu]="menu" [menus]="menus"></app-piana-dropdown>
+              <!--                <ul>
+                                <li *ngFor="let submenu of menu.children"
+                                    [ngStyle]="{ 'border-bottom': (submenu.type == 'divider') ? '#ddedfc solid 1px' : 'none',
+                                     'margin-right': (submenu.type == 'divider') ? '20px': '0px',
+                                     'margin-left': (submenu.type == 'divider') ? '16px': '0px',
+                                     'padding-bottom': (submenu.type == 'divider') ? '4px': '0px',
+                                     'margin-bottom': (submenu.type == 'divider') ? '4px': '0px'}">
+                                  <ng-container *ngIf="submenu.type != 'divider'">
+                                    <a *ngIf="submenu.hasOwnProperty('link')"
+                                       [routerLink]="[submenu['link']]"
+                                       routerLinkActive="menu-active-link"> {{submenu.title}}
+                                      <span *ngIf="submenu.badge" class="badge badge-pill"
+                                            [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
+                                    </a>
+                                  </ng-container>
+                                </li>
+                              </ul>-->
+            </ng-container>
+          </ng-container>
+        </ul>
+      </div>
+
+      <!--<div class="sidebar-menu">
+        <ul *ngIf="!sidebarservice.getSidebarState()">
+          <li *ngFor="let menu of menus" [ngClass]="{'active': menu.active , 'sidebar-dropdown':menu.type === 'dropdown' , 'header-menu':menu.type === 'header'}">
+            <span *ngIf="menu.type === 'header'">{{menu.title}}</span>
+            <a *ngIf="menu.type !== 'header' && menu.hasOwnProperty('link')"  [routerLink]="[menu['link']]">
+              <i class="{{menu.icon}}"></i>
+              <span>{{menu.title}}</span>
+              <span *ngIf="menu.badge" class="badge badge-pill" [ngClass]="menu.badge.class">{{menu.badge.text}}</span>
+            </a>
+            <a *ngIf="menu.type !== 'header' && !menu.hasOwnProperty('link')"  (click)='toggle(menu)'>
+              <i class="{{menu.icon}}"></i>
+              <span>{{menu.title}}</span>
+              <span *ngIf="menu.badge" class="badge badge-pill" [ngClass]="menu.badge.class">{{menu.badge.text}}</span>
+            </a>
+            <div *ngIf="menu.type === 'dropdown'" class="sidebar-submenu" [@slide3]="getState(menu)">
+              <ul>
+                <li *ngFor="let submenu of menu.children">
+                  <a *ngIf="submenu.hasOwnProperty('link')" [routerLink]="[submenu['link']]"> {{submenu.title}}
+                    <span *ngIf="submenu.badge" class="badge badge-pill" [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>-->
+    </perfect-scrollbar>
+  </div>
+</nav>

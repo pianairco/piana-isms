@@ -1,3 +1,7 @@
+.bg-piana-main {
+  background-color: #93c5f7;
+}
+
 .bg-inherit {
   background-color: inherit !important;
 }
@@ -54,8 +58,7 @@
 }
 
 .menu-active-link {
-  background-color: #5c6167;
-  color: #dbbdca !important;
+  color: #465684 !important;
   font-weight: bold;
 }
 

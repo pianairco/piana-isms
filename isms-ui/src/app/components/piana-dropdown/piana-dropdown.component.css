@@ -1,0 +1,95 @@
+.divider {
+  border-bottom: #ddedfc solid 1px;
+  margin-right: 20px;
+  margin-left: 16px;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+ul li a, li a {
+  color: white;
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  position: relative;
+  padding: 8px 30px 8px 20px;
+}
+
+ul li a:hover, li a:hover {
+  color: #3367e3;
+}
+
+ul li a i {
+  margin-left: 10px;
+  font-size: 12px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+li:not(.sidebar-dropdown) a:before {
+  display: inline-block;
+  content: "\002D";
+}
+
+ul li a:hover > i::before {
+  display: inline-block;
+  /*animation: swing ease-in-out 0.5s 1 alternate;*/
+}
+
+ul li a span.label, ul li a span.badge {
+  float: left;
+  margin-top: 8px;
+  margin-right: 5px;
+}
+
+.sidebar-dropdown > a:after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background: 0 0;
+  position: absolute;
+  left: 15px;
+  top: 14px;
+}
+
+.sidebar-dropdown:not(.active) > a:after {
+  content: "\f105";
+}
+
+.sidebar-dropdown.active > a:after {
+  content: "\f107";
+}
+
+.sidebar-dropdown .sidebar-submenu {
+  overflow: hidden;
+  padding-right: 8px;
+}
+
+.sidebar-dropdown.root.active {
+  background-color: #b9dbff;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  padding-top: 8px;
+  border-bottom: 1px solid #ddedfc;
+}
+

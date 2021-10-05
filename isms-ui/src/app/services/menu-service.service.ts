@@ -42,6 +42,34 @@ export class MenuService {
       console.log(err)
     }
   }
+
+  findChildren(menuId): Menu[] {
+    if (menuId == null)
+      return this._menu;
+    let children = null;
+    for (let i = 0; i < this._menu.length; i++) {
+      children = this.findChildrenRet(menuId, this._menu[i]);
+      if(children)
+        break;
+    }
+    return children;
+  }
+
+  findChildrenRet(menuId, menu: Menu): Menu[] {
+    if(menu.type != 'dropdown' || !menu.children) {
+      return null;
+    } else if(menu.id === menuId) {
+      return menu.children;
+    } else {
+      let children = null;
+      for (let i = 0; i < menu.children.length; i++) {
+        children = this.findChildrenRet(menuId, menu.children[i]);
+        if (children)
+          return children;
+      }
+    }
+    return null;
+  }
 }
 
 export class Menu {
