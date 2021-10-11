@@ -13,5 +13,5 @@ public interface ConsequenceParametersAttributeRepository extends JpaRepository<
             " c.consequence_parameters_type_id = t.id and a.consequence_parameters_type_id = t.id and c.id = :consequenceParametersId " +
             " order by a.order asc",
             nativeQuery = true)
-    List<Long> findRelatedToCompetition(@Param("consequenceParametersId") String consequenceParametersId);
+    List<ConsequenceParametersAttributeEntity> findRelatedToParameter(@Param("consequenceParametersId") long consequenceParametersId);
 }

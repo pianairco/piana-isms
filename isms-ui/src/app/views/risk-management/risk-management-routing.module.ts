@@ -7,9 +7,14 @@ import {ConsequenceParametersTypeComponent} from "./consequence-parameters-type/
 const routes: Routes = [
   {
     path: '', component: RiskManagementComponent, children: [
-      { path: 'settings', children: [
-          { path: 'consequence-parameters', component: ConsequenceParametersComponent, children: [
-              { path: 'type', component: ConsequenceParametersTypeComponent }
+      { path: 'assets-management', children: [
+          { path: 'settings', children: [
+              {
+                path: 'consequence-parameters', component: ConsequenceParametersComponent, children: [
+                  {path: 'type', component: ConsequenceParametersTypeComponent}
+                ]
+              },
+              { path: 'asset-grouped', component: ConsequenceParametersComponent }
             ]
           }
         ]
