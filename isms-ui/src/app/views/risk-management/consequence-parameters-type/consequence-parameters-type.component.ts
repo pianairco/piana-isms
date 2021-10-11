@@ -3,20 +3,27 @@ import {AjaxCallService} from "../../../services/ajax-call.service";
 import {BehaviorSubject} from "rxjs";
 
 @Component({
-  selector: 'app-consequence-parameters',
-  templateUrl: './consequence-parameters.component.html',
-  styleUrls: ['./consequence-parameters.component.css']
+  selector: 'app-consequence-parameters-type',
+  templateUrl: './consequence-parameters-type.component.html',
+  styleUrls: ['./consequence-parameters-type.component.css']
 })
-export class ConsequenceParametersComponent implements OnInit {
+export class ConsequenceParametersTypeComponent implements OnInit {
   _parameters = null;
   parameters$ = new BehaviorSubject(this._parameters);
+  type = null;
+
+  toString(obj) {
+    console.log(JSON.stringify(obj))
+    return JSON.stringify(obj);
+  }
 
   constructor(private ajaxCall: AjaxCallService) { }
 
   ngOnInit(): void {
-    this.ajaxCall.read("api/modules/riskmanagement/asset-management/settings/consequence-parameters/list")
+    this.ajaxCall.read("api/modules/riskmanagement/asset-management/settings/consequence-parameters-type/list-attributes")
       .then(res => {
         if(res.status == 200 && res.data['code'] == 0) {
+          console.log(res.data)
           this.parameters = res.data['data'];
         }
       });

@@ -1,0 +1,11 @@
+{
+  "RISK-MANAGEMENT": {
+    "SETTINGS": {
+      "CONSEQUENCE-PARAMETERS": {
+        "CONFIDENTIALITY": "Confidentiality (C)",
+        "INTEGRITY": "Integrity (I)",
+        "AVAILABILITY": "Availability (A)"
+      }
+    }
+  }
+}

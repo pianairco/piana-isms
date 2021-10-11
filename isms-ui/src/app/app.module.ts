@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -26,6 +26,36 @@ import {MatIconModule} from "@angular/material/icon";
 import {HomeComponent} from "./views/home/home.component";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxMaskModule} from "ngx-mask";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import {LOCATION_INITIALIZED} from "@angular/common";
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+export function ApplicationInitializerFactory(translate: TranslateService, injector: Injector) {
+
+  return async () => {
+
+    await injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
+
+    translate.addLangs(['en', 'fa']);
+
+    const defaultLang: string = 'fa';
+    translate.setDefaultLang(defaultLang);
+
+    try {
+      await translate.use(defaultLang).toPromise();
+    } catch (err) {
+      console.log(err);
+    }
+
+    console.log(`Successfully initialized ${defaultLang} language.`);
+  };
+}
 
 @NgModule({
   declarations: [
@@ -51,6 +81,7 @@ import {NgxMaskModule} from "ngx-mask";
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
@@ -66,11 +97,23 @@ import {NgxMaskModule} from "ngx-mask";
     MatSelectModule,
     MatAutocompleteModule,
     NgbModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   ],
   providers: [
     AuthenticationService,
-    InitializerService,
+    {
+      multi: true,
+      provide: APP_INITIALIZER,
+      deps: [TranslateService, Injector],
+      useFactory: ApplicationInitializerFactory
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: (initializerService: InitializerService) => () => initializerService.load(),

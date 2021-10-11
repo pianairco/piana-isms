@@ -1,0 +1,11 @@
+{
+  "RISK-MANAGEMENT": {
+    "SETTINGS": {
+      "CONSEQUENCE-PARAMETERS": {
+        "CONFIDENTIALITY": "محرمانگی (C)",
+        "INTEGRITY": "یکپارچگی (I)",
+        "AVAILABILITY": "دسترسی پذیری (A)"
+      }
+    }
+  }
+}

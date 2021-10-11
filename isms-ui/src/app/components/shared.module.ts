@@ -63,6 +63,7 @@ import {QueryCreatorService} from "./query-creator/query-creator.service";
 import {OptionQueryCreatorComponent} from "./query-creator/template/option-query-creator/option-query-creator.component";
 import {PianaDropdownComponent} from "./piana-dropdown/piana-dropdown.component";
 import {PianaSidebarComponent} from "./piana-sidebar/piana-sidebar.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import {PianaSidebarComponent} from "./piana-sidebar/piana-sidebar.component";
     SelectQueryComponent
   ],
   exports: [
+    TranslateModule,
     PianaDropdownComponent,
     PianaSidebarComponent,
     DragDropModule,

@@ -1,107 +1,28 @@
-<div class="container-fluid">
-  <!--<div class="row">
-    <div class="col col-12 mb-2">
-      <div class="col col-3 d-grid">
-        <button class="btn btn-success">محرمانگی (C)</button>
-      </div>
-    </div>
-
-    <div class="col col-12 mb-2">
-      <div class="col col-3 d-grid">
-        <button class="btn btn-success">یکپارچگی (I)</button>
-      </div>
-    </div>
-
-    <div class="col col-12 mb-2">
-      <div class="col col-3 d-grid">
-        <button class="btn btn-success">دسترسی پذیری (A)</button>
-      </div>
-    </div>
-
-    <div class="col col-12 mb-2">
-      <div class="col col-3 d-grid">
-        <button class="btn btn-success">افزودن پارامتر</button>
-      </div>
-    </div>
-  </div>-->
-
+<div class="container-fluid mx-sm-1 px-0 px-md-2">
   <div class="row">
     <div class="col col-12">
-      <mat-accordion class="example-headers-align" multi>
-        <mat-expansion-panel>
+      <!--multi-->
+      <mat-accordion class="example-headers-align" *ngIf="parameters$ | async">
+        <mat-expansion-panel *ngFor="let param of _parameters">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              محرمانگی (C)
+              {{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.' + param['alias'] | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
 
           <div class="row">
-            <div class="col-6">
-              <mat-form-field appearance="fill" style="width: 100%">
-                <mat-label>سطح</mat-label>
-                <mat-select>
-                  <mat-option value="3">3</mat-option>
-                  <mat-option value="5">5</mat-option>
-                  <mat-option value="7">7</mat-option>
-                  <mat-option value="9">9</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
 
-            <div class="col-6">
+            <div class="col col-12 col-sm-12 col-md-6">
               <mat-form-field appearance="fill" style="width: 100%">
                 <mat-label>ضریب</mat-label>
                 <input matInput>
               </mat-form-field>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-12 text-start" style="direction: rtl">
-              <mat-radio-group aria-label="Select an option">
-                <div class="row">
-                  <div class="col col-4">
-                    <mat-radio-button value="1">1</mat-radio-button>
-                  </div>
-                  <div class="col col-4">
-                    <mat-radio-button value="2">2</mat-radio-button>
-                  </div>
-                  <div class="col col-4">
-                    <mat-radio-button value="3">3</mat-radio-button>
-                  </div>
-                </div>
-              </mat-radio-group>
+            <div class="col col-12 col-sm-12 col-md-6">
+              <app-consequence-parameters-type></app-consequence-parameters-type>
+<!--              <router-outlet></router-outlet>-->
             </div>
           </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              یکپارچگی (I)
-            </mat-panel-title>
-            <!--<mat-panel-description>
-              Type the country name
-              <mat-icon>map</mat-icon>
-            </mat-panel-description>-->
-          </mat-expansion-panel-header>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Country</mat-label>
-            <input matInput>
-          </mat-form-field>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              دسترسی پذیری (A)
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Date</mat-label>
-            <input matInput type="text">
-
-          </mat-form-field>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
