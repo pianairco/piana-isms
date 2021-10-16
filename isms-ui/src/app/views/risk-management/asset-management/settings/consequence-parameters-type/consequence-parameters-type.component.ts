@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AjaxCallService} from "../../../../../services/ajax-call.service";
 import {BehaviorSubject} from "rxjs";
 
@@ -8,6 +8,7 @@ import {BehaviorSubject} from "rxjs";
   styleUrls: ['./consequence-parameters-type.component.css']
 })
 export class ConsequenceParametersTypeComponent implements OnInit {
+  @Input() parameterId : number;
   _parameters = null;
   parameters$ = new BehaviorSubject(this._parameters);
   type = null;
@@ -20,6 +21,7 @@ export class ConsequenceParametersTypeComponent implements OnInit {
   constructor(private ajaxCall: AjaxCallService) { }
 
   ngOnInit(): void {
+    console.log(this.parameterId)
     this.ajaxCall.read("api/modules/riskmanagement/asset-management/settings/consequence-parameters-type/list-attributes")
       .then(res => {
         if(res.status == 200 && res.data['code'] == 0) {

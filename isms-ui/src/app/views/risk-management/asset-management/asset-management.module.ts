@@ -6,13 +6,15 @@ import {AssetManagementComponent} from './asset-management.component';
 import {ConsequenceParametersComponent} from "./settings/consequence-parameters/consequence-parameters.component";
 import {ConsequenceParametersTypeComponent} from "./settings/consequence-parameters-type/consequence-parameters-type.component";
 import {SharedModule} from "../../../components/shared.module";
+import { ConsequenceParametersTypeSelectorComponent } from './settings/consequence-parameters-type-selector/consequence-parameters-type-selector.component';
 
 
 @NgModule({
   declarations: [
     AssetManagementComponent,
     ConsequenceParametersComponent,
-    ConsequenceParametersTypeComponent
+    ConsequenceParametersTypeComponent,
+    ConsequenceParametersTypeSelectorComponent
   ],
   imports: [
     CommonModule,
