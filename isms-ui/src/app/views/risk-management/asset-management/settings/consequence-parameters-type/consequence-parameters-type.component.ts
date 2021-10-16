@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AjaxCallService} from "../../../services/ajax-call.service";
+import {AjaxCallService} from "../../../../../services/ajax-call.service";
 import {BehaviorSubject} from "rxjs";
 
 @Component({

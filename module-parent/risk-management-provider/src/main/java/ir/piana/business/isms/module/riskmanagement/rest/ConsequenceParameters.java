@@ -1,6 +1,7 @@
 package ir.piana.business.isms.module.riskmanagement.rest;
 
 import ir.piana.business.isms.common.model.ResponseModel;
+import ir.piana.business.isms.module.riskmanagement.data.entity.ConsequenceParametersAttributeEntity;
 import ir.piana.business.isms.module.riskmanagement.data.entity.ConsequenceParametersEntity;
 import ir.piana.business.isms.module.riskmanagement.data.repository.ConsequenceParametersAttributeRepository;
 import ir.piana.business.isms.module.riskmanagement.data.repository.ConsequenceParametersRepository;
@@ -29,6 +30,9 @@ public class ConsequenceParameters {
 
     @GetMapping("list")
     public ResponseEntity<ResponseModel> list() {
+        List<ConsequenceParametersAttributeEntity> relatedToParameter = attributeRepository
+                .findRelatedToParameter(1l);
+
         List<ConsequenceParametersEntity> all = parametersRepository.findAll();
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(all).build());
     }

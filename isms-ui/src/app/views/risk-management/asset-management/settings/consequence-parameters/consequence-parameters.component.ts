@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AjaxCallService} from "../../../services/ajax-call.service";
+import {AjaxCallService} from "../../../../../services/ajax-call.service";
 import {BehaviorSubject} from "rxjs";
 
 @Component({
@@ -13,13 +13,19 @@ export class ConsequenceParametersComponent implements OnInit {
 
   constructor(private ajaxCall: AjaxCallService) { }
 
-  ngOnInit(): void {
-    this.ajaxCall.read("api/modules/riskmanagement/asset-management/settings/consequence-parameters/list")
-      .then(res => {
+  async ngOnInit() {
+    let res = await this.ajaxCall.readAsync("api/modules/riskmanagement/asset-management/settings/consequence-parameters/list");
+    if(res.status == 200 && res.data['code'] == 0) {
+      console.log(res.data['data'])
+      this.parameters = res.data['data'];
+    }
+
+
+/*    d.then(res => {
         if(res.status == 200 && res.data['code'] == 0) {
           this.parameters = res.data['data'];
         }
-      });
+      });*/
   }
 
   set parameters(_parameters) {
