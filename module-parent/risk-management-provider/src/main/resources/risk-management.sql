@@ -43,3 +43,15 @@ INSERT INTO consequence_parameters (id, consequence_parameters_type_id, name, al
     select 2, 2, 'integrity', 'INTEGRITY', 1 union
     select 3, 2, 'availability', 'AVAILABILITY', 1
 ) where not exists(select * from consequence_parameters);
+
+create table IF NOT EXISTS asset_category (
+    id number(18) primary key,
+    asset_category_name varchar(128) NOT NULL ,
+    parent_id number(18)
+);
+
+INSERT INTO asset_category (id, asset_category_name) select * from (
+    select 1 , 'سخت افزار' union
+    select 2 , 'نرم افزار' union
+    select 3 , 'شبکه'
+) where not exists(select * from asset_category);
