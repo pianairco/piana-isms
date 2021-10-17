@@ -18,7 +18,7 @@ public class AssetCategoryEntity {
     @Column(name = "ID")
     private long id;
     @Column(name = "asset_category_name")
-    private long assetCategoryName;
+    private String assetCategoryName;
     @Column(name = "parent_id")
-    private long parentId;
+    private Long parentId;
 }

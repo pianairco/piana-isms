@@ -1,3 +1,4 @@
 GET https://piana.ir:8443/api/modules/riskmanagement/consequence-parameters/list
 
 ###
+GET https://localhost:8443/api/modules/riskmanagement/asset-management/settings/asset-category/list
