@@ -14,4 +14,16 @@ public interface ConsequenceParametersAttributeRepository extends JpaRepository<
             " order by a.orders asc",
             nativeQuery = true)
     List<ConsequenceParametersAttributeEntity> findRelatedToParameter(@Param("consequenceParametersId") long consequenceParametersId);
+
+    @Query(value = "SELECT a.id, a.value, a.label, a.orders, a.consequence_parameters_type_id  FROM consequence_parameters_attribute a, consequence_parameters_type t, consequence_parameters c WHERE " +
+            " c.consequence_parameters_type_id = t.id and a.consequence_parameters_type_id = t.id and c.id = :consequenceParametersId " +
+            " order by a.orders asc",
+            nativeQuery = true)
+    List<Object[]> findRelatedToParameterAsObjectArray(@Param("consequenceParametersId") long consequenceParametersId);
+
+    @Query(value = "SELECT new ConsequenceParametersAttributeEntity(a.id, a.value, a.label) FROM ConsequenceParametersAttributeEntity a, ConsequenceParametersTypeEntity t, ConsequenceParametersEntity c WHERE " +
+            " c.consequenceParametersTypeId = t.id and a.consequenceParametersTypeId = t.id and c.id = :consequenceParametersId " +
+            " order by a.orders asc",
+            nativeQuery = false)
+    List<ConsequenceParametersAttributeEntity> findRelatedToParameterSomeField(@Param("consequenceParametersId") long consequenceParametersId);
 }

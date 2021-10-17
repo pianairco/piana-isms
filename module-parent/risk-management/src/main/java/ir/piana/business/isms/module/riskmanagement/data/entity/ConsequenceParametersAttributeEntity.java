@@ -18,11 +18,19 @@ public class ConsequenceParametersAttributeEntity {
     @Column(name = "ID")
     private long id;
     @Column(name = "consequence_parameters_type_id")
-    private long consequenceParametersTypeId;
+    @Basic(fetch = FetchType.LAZY)
+    private Long consequenceParametersTypeId;
     @Column(name = "orders")
-    private long orders;
+    @Basic(fetch = FetchType.LAZY)
+    private Long orders;
     @Column(name = "value")
     private long value;
     @Column(name = "label")
     private String label;
+
+    public ConsequenceParametersAttributeEntity(long id, long value, String label) {
+        this.id = id;
+        this.value = value;
+        this.label = label;
+    }
 }

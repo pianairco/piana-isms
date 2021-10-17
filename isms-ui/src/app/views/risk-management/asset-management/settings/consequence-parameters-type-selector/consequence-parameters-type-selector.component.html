@@ -1,0 +1,32 @@
+<ng-container *ngIf="parameters$ | async">
+  <div >
+    <label id="example-radio-group-label" class="mb-2">انتخاب الگو</label>
+    <mat-radio-group [(ngModel)]="type"
+      aria-labelledby="example-radio-group-label"
+      class="example-radio-group" >
+
+      <div *ngFor="let typeKey of _parameters | keyvalue"
+           style="border: 1px solid #cdc2c2; padding: 6px; border-radius: 16px; margin-bottom: 8px;">
+        <mat-radio-button class="example-radio-button" [value]="typeKey.value">
+          {{typeKey.key}}
+        </mat-radio-button>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">ردیف</th>
+            <th scope="col">مقدار</th>
+            <th scope="col">برچسب</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let attr of typeKey.value; let i = index">
+            <th scope="row">{{attr['orders']}}<!--{{i}}--></th>
+            <td>{{attr['value']}}</td>
+            <td>{{attr['label']}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-radio-group>
+  </div>
+</ng-container>

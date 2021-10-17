@@ -33,6 +33,12 @@ public class ConsequenceParameters {
         List<ConsequenceParametersAttributeEntity> relatedToParameter = attributeRepository
                 .findRelatedToParameter(1l);
 
+        List<Object[]> relatedToParameterAsObjectArray = attributeRepository
+                .findRelatedToParameterAsObjectArray(1L);
+
+        List<ConsequenceParametersAttributeEntity> relatedToParameterSomeField = attributeRepository
+                .findRelatedToParameterSomeField(1L);
+
         List<ConsequenceParametersEntity> all = parametersRepository.findAll();
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(all).build());
     }

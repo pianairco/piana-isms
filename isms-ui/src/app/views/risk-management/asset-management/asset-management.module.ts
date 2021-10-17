@@ -7,6 +7,12 @@ import {ConsequenceParametersComponent} from "./settings/consequence-parameters/
 import {ConsequenceParametersTypeComponent} from "./settings/consequence-parameters-type/consequence-parameters-type.component";
 import {SharedModule} from "../../../components/shared.module";
 import { ConsequenceParametersTypeSelectorComponent } from './settings/consequence-parameters-type-selector/consequence-parameters-type-selector.component';
+import {
+  ModalParameterSelectorComponent,
+  ParametersSelectorDialogComponent
+} from "./settings/parameters-selector-dialog/parameters-selector-dialog.component";
+import {FormsModule} from "@angular/forms";
+
 
 
 @NgModule({
@@ -14,10 +20,13 @@ import { ConsequenceParametersTypeSelectorComponent } from './settings/consequen
     AssetManagementComponent,
     ConsequenceParametersComponent,
     ConsequenceParametersTypeComponent,
-    ConsequenceParametersTypeSelectorComponent
+    ConsequenceParametersTypeSelectorComponent,
+    ModalParameterSelectorComponent,
+    ParametersSelectorDialogComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
     AssetManagementRoutingModule
   ]
