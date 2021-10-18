@@ -1,11 +1,5 @@
 <ng-container *ngIf="attributes$ | async">
   <div >
-    <label id="example-radio-group-label" class="mb-2">
-      <span>الگوی مقادیر</span>
-      <i class="btn btn-sm btn-outline-secondary fas fa-edit px-1 mx-1"
-         (click)="navigateToChange()"
-         style="padding-bottom: 2px; padding-top: 2px"></i>
-    </label>
     <mat-radio-group
       aria-labelledby="example-radio-group-label"
       class="example-radio-group" [value]="type" >

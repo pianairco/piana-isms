@@ -1,15 +1,13 @@
 <ng-container *ngIf="parameters$ | async">
   <div >
     <label id="example-radio-group-label" class="mb-2">انتخاب الگو</label>
-    <mat-radio-group [(ngModel)]="type"
-      aria-labelledby="example-radio-group-label"
-      class="example-radio-group" >
-
-      <div *ngFor="let typeKey of _parameters | keyvalue"
+    <div *ngFor="let typeKey of _parameters | keyvalue"
            style="border: 1px solid #cdc2c2; padding: 6px; border-radius: 16px; margin-bottom: 8px;">
-        <mat-radio-button class="example-radio-button" [value]="typeKey.value">
-          {{typeKey.key}}
-        </mat-radio-button>
+      <button [disabled]="parameterTypeId == typeKey.key"
+              class="btn btn-sm btn-success my-1"
+              (click)="select(typeKey.key)">انتخاب</button>
+      <button class="btn btn-sm btn-outline-secondary mx-1 my-1"
+              (click)="select(typeKey.key)">الگوی جدید</button>
         <table class="table table-striped">
           <thead>
           <tr>
@@ -26,7 +24,6 @@
           </tr>
           </tbody>
         </table>
-      </div>
-    </mat-radio-group>
+    </div>
   </div>
 </ng-container>

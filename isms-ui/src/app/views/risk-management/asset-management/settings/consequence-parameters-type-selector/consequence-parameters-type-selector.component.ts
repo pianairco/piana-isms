@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {AjaxCallService} from "../../../../../services/ajax-call.service";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, ParamMap, Params} from "@angular/router";
 
 @Component({
   selector: 'app-consequence-parameters-type-selector',
@@ -9,11 +9,10 @@ import {ActivatedRoute, Params} from "@angular/router";
   styleUrls: ['./consequence-parameters-type-selector.component.css']
 })
 export class ConsequenceParametersTypeSelectorComponent implements OnInit {
-
-  parameterId;
+  @Input() parameterTypeId;
+  @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
   _parameters = null;
   parameters$ = new BehaviorSubject(this._parameters);
-  type = null;
 
   toString(obj) {
     console.log(JSON.stringify(obj))
@@ -22,11 +21,9 @@ export class ConsequenceParametersTypeSelectorComponent implements OnInit {
 
   constructor(private ajaxCall: AjaxCallService,
               private route: ActivatedRoute) {
-
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => this.parameterId = params['parameterId']);
     this.ajaxCall.read("api/modules/riskmanagement/asset-management/settings/consequence-parameters-type/list-attributes")
       .then(res => {
         if(res.status == 200 && res.data['code'] == 0) {
@@ -39,5 +36,9 @@ export class ConsequenceParametersTypeSelectorComponent implements OnInit {
   set parameters(_parameters) {
     this._parameters = _parameters;
     this.parameters$.next(this._parameters);
+  }
+
+  select(parameterTypeId) {
+    this.onSelect.emit(+parameterTypeId);
   }
 }

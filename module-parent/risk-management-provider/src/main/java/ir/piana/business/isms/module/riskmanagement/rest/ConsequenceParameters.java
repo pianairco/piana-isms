@@ -6,13 +6,14 @@ import ir.piana.business.isms.module.riskmanagement.data.entity.ConsequenceParam
 import ir.piana.business.isms.module.riskmanagement.data.repository.ConsequenceParametersAttributeRepository;
 import ir.piana.business.isms.module.riskmanagement.data.repository.ConsequenceParametersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController("consequenceParameters")
 @RequestMapping("/api/modules/riskmanagement/asset-management/settings/consequence-parameters")
@@ -41,5 +42,17 @@ public class ConsequenceParameters {
 
         List<ConsequenceParametersEntity> all = parametersRepository.findAll();
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(all).build());
+    }
+
+    @PutMapping(value = "update-type",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseModel> updateType(@RequestBody Map<String, Long> map) {
+        Long parameterId = map.get("parameterId");
+        Long parameterTypeId = map.get("parameterTypeId");
+
+        parametersRepository
+                .updateParameterTypeId(parameterId, parameterTypeId);
+        return ResponseEntity.ok(ResponseModel.builder().code(0).build());
     }
 }

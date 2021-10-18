@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', component: AssetManagementComponent, children: [
       { path: 'settings', children: [
           { path: 'consequence-parameters', component: ConsequenceParametersComponent, children:[
-              { path: 'select/:parameterId', component: ModalParameterSelectorComponent }
+              { path: 'select/:parameterId/:parameterTypeId', component: ModalParameterSelectorComponent }
             ]
           },
           { path: 'asset-grouped', component: ConsequenceParametersComponent }
