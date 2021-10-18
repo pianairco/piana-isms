@@ -11,7 +11,7 @@ public interface ConsequenceParametersRepository extends JpaRepository<Consequen
     ConsequenceParametersEntity findByName(String name);
     List<ConsequenceParametersEntity> findByConsequenceParametersTypeId(long consequenceParametersTypeId);
 
-    @Query(value = "update consequence_parameters p set p.consequence_parameters_type_id = :typeId where p.id = :id", nativeQuery = true)
+    @Query(value = "update consequence_parameters p set p.consequence_parameters_type_id = :parameterTypeId where p.id = :parameterId", nativeQuery = true)
     void updateParameterTypeId(@Param("parameterId") Long parameterId,
                                @Param("parameterTypeId") Long parameterTypeId);
 //    @Query(value = "SELECT u.id FROM users u, weekly_matches_competition_prediction p WHERE " +
