@@ -17,12 +17,20 @@ public class ConsequenceParametersAttributeEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "master_seq")
     @Column(name = "ID")
     private long id;
-    @Column(name = "consequence_parameters_type_id")
-    private long consequenceParametersTypeId;
-    @Column(name = "orders")
-    private long orders;
-    @Column(name = "value")
+    @Column(name = "CONSEQUENCE_PARAMETERS_TYPE_ID")
+    @Basic(fetch = FetchType.LAZY)
+    private Long consequenceParametersTypeId;
+    @Column(name = "ORDERS")
+    @Basic(fetch = FetchType.LAZY)
+    private Long orders;
+    @Column(name = "VALUE")
     private long value;
-    @Column(name = "label")
+    @Column(name = "LABEL")
     private String label;
+
+    public ConsequenceParametersAttributeEntity(long id, long value, String label) {
+        this.id = id;
+        this.value = value;
+        this.label = label;
+    }
 }

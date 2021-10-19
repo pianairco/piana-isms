@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
@@ -41,9 +42,19 @@ public class ConsequenceParametersType {
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(all).build());
     }
 
+    @GetMapping("parameter-type-attributes-")
+    public ResponseEntity<ResponseModel> listAttrRelatedToParameter(@RequestParam("parameterId") long parameterId) {
+//        List<Object[]> all1 = attributeRepository.findRelatedToParameter(parameterId);
+//        List<ConsequenceParametersAttributeEntity> all2 = attributeRepository.findRelatedToParameter2(parameterId);
+        List<Map<String, Object>> all3 = attributeRepository.findRelatedToParameter3(parameterId);
+
+        return ResponseEntity.ok(ResponseModel.builder().code(0).data(all3).build());
+    }
+
     @GetMapping("list-attributes")
     public ResponseEntity<ResponseModel> listAttr() {
         List<ConsequenceParametersAttributeEntity> all = attributeRepository.findAll();
+
         Map<Long, List<ConsequenceParametersAttributeEntity>> collect = all.stream()
                 .collect(Collectors.groupingBy(ConsequenceParametersAttributeEntity::getConsequenceParametersTypeId));
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(collect).build());

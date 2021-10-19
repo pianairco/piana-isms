@@ -6,12 +6,24 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ConsequenceParametersAttributeRepository extends JpaRepository<ConsequenceParametersAttributeEntity, Long> {
     List<ConsequenceParametersAttributeEntity> findByConsequenceParametersTypeId(long consequenceParametersTypeId);
-    @Query(value = "SELECT a.* FROM consequence_parameters_attribute a, consequence_parameters_type t, consequence_parameters c WHERE " +
+    @Query(value = "SELECT a.ID, a.VALUE, a.LABEL FROM consequence_parameters_attribute a, consequence_parameters_type t, consequence_parameters c WHERE " +
             " c.consequence_parameters_type_id = t.id and a.consequence_parameters_type_id = t.id and c.id = :consequenceParametersId " +
-            " order by a.order asc",
+            " order by a.orders asc",
             nativeQuery = true)
-    List<ConsequenceParametersAttributeEntity> findRelatedToParameter(@Param("consequenceParametersId") long consequenceParametersId);
+    List<Object[]> findRelatedToParameter(@Param("consequenceParametersId") long consequenceParametersId);
+
+    @Query(value = "SELECT a.ID, a.VALUE, a.LABEL FROM consequence_parameters_attribute a, consequence_parameters_type t, consequence_parameters c WHERE " +
+            " c.consequence_parameters_type_id = t.id and a.consequence_parameters_type_id = t.id and c.id = :consequenceParametersId " +
+            " order by a.orders asc",
+            nativeQuery = true)
+    List<Map<String, Object>> findRelatedToParameter3(@Param("consequenceParametersId") long consequenceParametersId);
+
+    @Query(value = "SELECT new ir.piana.business.isms.module.riskmanagement.data.entity.ConsequenceParametersAttributeEntity(a.id, a.value, a.label) FROM ConsequenceParametersAttributeEntity a, ConsequenceParametersTypeEntity t, ConsequenceParametersEntity c WHERE " +
+            " c.consequenceParametersTypeId = t.id and a.consequenceParametersTypeId = t.id and c.id = ?1 " +
+            " order by a.orders asc")
+    List<ConsequenceParametersAttributeEntity> findRelatedToParameter2(long consequenceParametersId);
 }
