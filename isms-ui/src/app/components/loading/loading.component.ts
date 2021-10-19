@@ -27,7 +27,6 @@ export class LoadingComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadingService.currentState.subscribe(state => {
-      console.log("waiting...")
       this.showLoading = state;
       if(this.showLoading) {
         if(!this.dialogRef) {
@@ -43,6 +42,7 @@ export class LoadingComponent implements OnInit {
       } else {
         if (this.dialogRef) {
           this.dialogRef.close();
+          this.dialogRef = null;
         }
       }
       // console.log(state);

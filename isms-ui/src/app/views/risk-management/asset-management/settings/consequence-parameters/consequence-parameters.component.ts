@@ -14,10 +14,19 @@ export class ConsequenceParametersComponent implements OnInit {
 
   constructor(private ajaxCall: AjaxCallService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+    console.log("ConsequenceParametersComponent construct")
+  }
 
   async ngOnInit() {
-    let res = await this.ajaxCall.readAsync("api/modules/riskmanagement/asset-management/settings/consequence-parameters/list");
+    console.log("ConsequenceParametersComponent init")
+    /*let res = await this.ajaxCall.readAsync("api/modules/riskmanagement/asset-management/settings/consequence-parameters/list");
+    if(res.status == 200 && res.data['code'] == 0) {
+      console.log(res.data['data'])
+      this.parameters = res.data['data'];
+    }*/
+
+    let res = await this.ajaxCall.readAsync("api/modules/riskmanagement/asset-management/settings/consequence-parameters/id-and-names");
     if(res.status == 200 && res.data['code'] == 0) {
       console.log(res.data['data'])
       this.parameters = res.data['data'];
@@ -36,7 +45,11 @@ export class ConsequenceParametersComponent implements OnInit {
     this.parameters$.next(this._parameters);
   }
 
-  navigateToChange(parameterId, parameterTypeId) {
-    this.router.navigate(['select', parameterId, parameterTypeId], { relativeTo: this.route });
+  paramOpened = new BehaviorSubject(0);
+  open(parameterId) {
+    console.log("opened", parameterId);
+    this.paramOpened.next(parameterId);
+    this.router.navigate(['values', parameterId], { relativeTo: this.route });
+    // console.log(parameterId);
   }
 }

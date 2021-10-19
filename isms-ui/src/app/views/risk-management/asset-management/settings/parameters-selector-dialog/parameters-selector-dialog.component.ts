@@ -46,9 +46,11 @@ export class ModalParameterSelectorComponent implements OnInit {
     private overlay: Overlay,
     private router: Router,
     private route: ActivatedRoute) {
+    console.log("ModalParameterSelectorComponent cons")
   }
 
   ngOnInit(): void {
+    console.log("ModalParameterSelectorComponent init")
     this.parameterId = +this.route.snapshot.paramMap.get('parameterId');
     this.parameterTypeId = +this.route.snapshot.paramMap.get('parameterTypeId');
     /*this.route.paramMap.subscribe(
@@ -72,14 +74,15 @@ export class ModalParameterSelectorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed => ', result);
       if(result['status'] == 0) {
-        let promise = this.ajaxService.updateAsync('/api/modules/riskmanagement/asset-management/settings/consequence-parameters/update-type',
+        let promise = this.ajaxService.updateAsync('api/modules/riskmanagement/asset-management/settings/consequence-parameters/update-type',
           { parameterId: this.parameterId, parameterTypeId: result['parameterTypeId']});
-        this.router.navigate(['../../../'], { relativeTo: this.route });
+
         promise.then(res => {
           console.log(res);
         });
         // this.loadingService.changeState(true);
       }
+      this.router.navigate(['../../../values/' + this.parameterId], { relativeTo: this.route });
 
       /*if(isSuccess && btn.hasOwnProperty('navigateOnSuccess')) {
         this.router.navigateByUrl(btn['navigateOnSuccess']);

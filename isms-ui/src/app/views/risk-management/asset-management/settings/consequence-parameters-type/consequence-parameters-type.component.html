@@ -1,26 +1,52 @@
-<ng-container *ngIf="attributes$ | async">
-  <div >
-    <mat-radio-group
-      aria-labelledby="example-radio-group-label"
-      class="example-radio-group" [value]="type" >
+<div class="row justify-content-center">
 
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th scope="col">ردیف</th>
-          <th scope="col">مقدار</th>
-          <th scope="col">برچسب</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let attr of _attributes; let i = index">
-          <th scope="row">{{attr['orders']}}<!--{{i}}--></th>
-          <td>{{attr['value']}}</td>
-          <td>{{attr['label']}}</td>
-        </tr>
-        </tbody>
-      </table>
-
-    </mat-radio-group>
+  <div class="col col-12 col-sm-12 col-md-6">
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>ضریب</mat-label>
+      <input matInput [(ngModel)]="_coefficient">
+      <button mat-icon-button matSuffix>
+        <mat-icon>done</mat-icon>
+      </button>
+    </mat-form-field>
   </div>
-</ng-container>
+</div>
+<div class="row justify-content-center">
+  <div class="col col-12 col-sm-12 col-md-6">
+    <div>
+      <label id="example-radio-group-label" class="mb-2">
+        <span>الگوی مقادیر</span>
+        <i class="btn btn-sm btn-outline-secondary fas fa-edit px-1 mx-1"
+           (click)="navigateToChange(parameterId, _typeId)"
+           style="padding-bottom: 2px; padding-top: 2px"></i>
+      </label>
+    </div>
+<!--    <app-consequence-parameters-type [parameterId]="param['id']"></app-consequence-parameters-type>-->
+    <ng-container *ngIf="attributes$ | async">
+      <div >
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group" [value]="type" >
+
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">ردیف</th>
+              <th scope="col">مقدار</th>
+              <th scope="col">برچسب</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let attr of _attributes; let i = index">
+              <th scope="row">{{attr['orders']}}<!--{{i}}--></th>
+              <td>{{attr['value']}}</td>
+              <td>{{attr['label']}}</td>
+            </tr>
+            </tbody>
+          </table>
+
+        </mat-radio-group>
+      </div>
+    </ng-container>
+  </div>
+</div>
+

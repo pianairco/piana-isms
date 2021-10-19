@@ -8,9 +8,13 @@ import ir.piana.business.isms.module.riskmanagement.data.repository.ConsequenceP
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,6 +33,28 @@ public class ConsequenceParameters {
 
     }
 
+    @GetMapping("id-and-names")
+    public ResponseEntity<ResponseModel> getIdAndNames() {
+        List<String> parametersNames = parametersRepository.findParametersNames();
+        List<Object[]> parametersIdAndName = parametersRepository.findParametersIdAndName();
+        return ResponseEntity.ok(ResponseModel.builder().code(0).data(parametersIdAndName).build());
+    }
+
+    @GetMapping("coefficient-and-type-attributes/{parameter-id}")
+    public ResponseEntity<ResponseModel> getCoefficientAndTypeAttributes(
+            @PathVariable("parameter-id") Long parameterId) {
+        List<Object[]> values = parametersRepository.findCoefficientAndTypeId(parameterId);
+        List<ConsequenceParametersAttributeEntity> attributes =
+                attributeRepository.findByConsequenceParametersTypeId(((BigDecimal) values.get(0)[1]).longValue());
+        Map<String, Object> res = new LinkedHashMap<>();
+        res.put("coefficient", values.get(0)[0]);
+        res.put("parameterTypeId", values.get(0)[1]);
+        res.put("attributes", attributes);
+        return ResponseEntity.ok(ResponseModel.builder().code(0).data(res).build());
+    }
+
+
+
     @GetMapping("list")
     public ResponseEntity<ResponseModel> list() {
         List<ConsequenceParametersAttributeEntity> relatedToParameter = attributeRepository
@@ -44,6 +70,7 @@ public class ConsequenceParameters {
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(all).build());
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @PutMapping(value = "update-type",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
