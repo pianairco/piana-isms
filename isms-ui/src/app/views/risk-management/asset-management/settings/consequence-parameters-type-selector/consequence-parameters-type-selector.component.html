@@ -1,0 +1,29 @@
+<ng-container *ngIf="parameters$ | async">
+  <div >
+    <label id="example-radio-group-label" class="mb-2">انتخاب الگو</label>
+    <div *ngFor="let typeKey of _parameters | keyvalue"
+           style="border: 1px solid #cdc2c2; padding: 6px; border-radius: 16px; margin-bottom: 8px;">
+      <button [disabled]="parameterTypeId == typeKey.key"
+              class="btn btn-sm btn-success my-1"
+              (click)="select(typeKey.key)">انتخاب</button>
+      <button class="btn btn-sm btn-outline-secondary mx-1 my-1"
+              (click)="select(typeKey.key)">الگوی جدید</button>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">ردیف</th>
+            <th scope="col">مقدار</th>
+            <th scope="col">برچسب</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let attr of typeKey.value; let i = index">
+            <th scope="row">{{attr['orders']}}<!--{{i}}--></th>
+            <td>{{attr['value']}}</td>
+            <td>{{attr['label']}}</td>
+          </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</ng-container>

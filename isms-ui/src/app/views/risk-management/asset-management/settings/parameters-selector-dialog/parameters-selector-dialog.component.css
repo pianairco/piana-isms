@@ -1,0 +1,11 @@
+::ng-deep.mat-dialog-container {
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+}
+
+.my-mat-header {
+  background-color: #c9f0f5;
+  padding: 8px 16px;
+  margin-left: 12px;
+  margin-right: 12px;
+}

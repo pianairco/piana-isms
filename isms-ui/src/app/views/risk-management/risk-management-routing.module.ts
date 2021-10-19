@@ -1,24 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RiskManagementComponent} from './risk-management.component';
-import {ConsequenceParametersComponent} from "./consequence-parameters/consequence-parameters.component";
-import {ConsequenceParametersTypeComponent} from "./consequence-parameters-type/consequence-parameters-type.component";
 
 const routes: Routes = [
   {
     path: '', component: RiskManagementComponent, children: [
-      { path: 'assets-management', children: [
-          { path: 'settings', children: [
-              {
-                path: 'consequence-parameters', component: ConsequenceParametersComponent, children: [
-                  {path: 'type', component: ConsequenceParametersTypeComponent}
-                ]
-              },
-              { path: 'asset-grouped', component: ConsequenceParametersComponent }
-            ]
-          }
-        ]
-      }
+      { path: 'assets-management', loadChildren: () => import('./asset-management/asset-management.module').then(m => m.AssetManagementModule) },
     ]
   }
 ];

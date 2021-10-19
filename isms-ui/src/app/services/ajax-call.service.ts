@@ -26,6 +26,7 @@ export class AjaxCallService {
   }
 
   requestByConfig(config: any): Promise<any> {
+    this.loadingService.changeState(true);
     return new Promise((resolve, reject) => {
       axios(config).then(res => {
         this.resolve(resolve, res);

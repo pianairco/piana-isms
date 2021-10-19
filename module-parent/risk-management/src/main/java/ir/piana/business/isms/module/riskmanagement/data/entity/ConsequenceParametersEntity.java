@@ -23,6 +23,6 @@ public class ConsequenceParametersEntity {
     private String name;
     @Column(name = "alias")
     private String alias;
-    @Column(name = "Coefficient")
+    @Column(name = "coefficient")
     private long coefficient;
 }

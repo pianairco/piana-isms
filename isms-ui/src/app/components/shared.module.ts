@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {TopbarComponent} from "./topbar/topbar.component";
 import {FooterComponent} from "./footer/footer.component";
 import {NotificationComponent} from "./notification/notification.component";
-import {LoadingComponent} from "./loading/loading.component";
+import {LoadingComponent, LoadingDialogComponent} from "./loading/loading.component";
 // import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "angularx-social-login";
 import {PictureBoxComponent} from './picture-box/picture-box.component';
 import {HeaderComponent} from './header/header.component';
@@ -64,6 +64,7 @@ import {OptionQueryCreatorComponent} from "./query-creator/template/option-query
 import {PianaDropdownComponent} from "./piana-dropdown/piana-dropdown.component";
 import {PianaSidebarComponent} from "./piana-sidebar/piana-sidebar.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import {TranslateModule} from "@ngx-translate/core";
     InfoBoxComponent,
     NotificationComponent,
     LoadingComponent,
+    LoadingDialogComponent,
     PictureBoxComponent,
     SearchViewComponent,
     SearchBoxComponent,
@@ -136,6 +138,7 @@ import {TranslateModule} from "@ngx-translate/core";
     MatCheckboxModule,
     MatSelectModule,
     MatIconModule,
+    MatProgressBarModule,
     MatSlideToggleModule,
     MatPaginatorModule,
     MatExpansionModule,
@@ -169,6 +172,7 @@ import {TranslateModule} from "@ngx-translate/core";
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
+    MatProgressBarModule,
     MatTabsModule,
     MatExpansionModule,
     MatCardModule,

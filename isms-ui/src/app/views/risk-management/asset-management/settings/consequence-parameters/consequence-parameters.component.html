@@ -1,0 +1,73 @@
+<div class="container-fluid mx-sm-1 px-0 px-md-2">
+  <div class="row">
+    <div class="col col-3">
+      <ng-container *ngIf="parameters$ | async">
+        <a class="nav-link" [routerLink]="['values', param[0]]" routerLinkActive="selected"
+           *ngFor="let param of _parameters">
+          {{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.' + (param[1]  | uppercase) | translate}}
+        </a>
+<!--        <mat-selection-list [multiple]="false" [(ngModel)]="selectedParameterId" (selectionChange)="onSelect($event)">-->
+<!--          <mat-list-option *ngFor="let param of _parameters" [value]="param[0]"-->
+<!--                           (change)="onSelect(param[0])">-->
+<!--            {{param[1]}}-->
+<!--          </mat-list-option>-->
+<!--        </mat-selection-list>-->
+        <!--<div class="d-grid my-1" *ngFor="let param of _parameters">
+          <button class="btn btn-outline-secondary">{{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.' + (param[1]  | uppercase) | translate}}</button>
+        </div>-->
+      </ng-container>
+      <div class="d-grid my-2">
+        <button class="btn btn-outline-success">
+          افزودن پارامتر جدید
+        </button>
+      </div>
+    </div>
+    <div class="col col-9">
+      <router-outlet></router-outlet>
+      <!--multi-->
+      <!--<mat-accordion class="example-headers-align" *ngIf="parameters$ | async">
+        <mat-expansion-panel *ngFor="let param of _parameters" (opened)="open(param[0])">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.' + (param[1]  | uppercase) | translate}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <h1 *ngIf="paramOpened == param[0]">{{paramOpened}} - {{param[0]}}</h1>
+          <router-outlet *ngIf="(paramOpened | async) == param[0]"></router-outlet>
+
+          &lt;!&ndash;<div class="row justify-content-center">
+
+            <div class="col col-12 col-sm-12 col-md-6">
+              <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>ضریب</mat-label>
+                <input matInput>
+                <button mat-icon-button matSuffix>
+                  <mat-icon>done</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col col-12 col-sm-12 col-md-6">
+              <div >
+                <label id="example-radio-group-label" class="mb-2">
+                  <span>الگوی مقادیر</span>
+                  <i class="btn btn-sm btn-outline-secondary fas fa-edit px-1 mx-1"
+                     (click)="navigateToChange(param['id'], param['consequenceParametersTypeId'])"
+                     style="padding-bottom: 2px; padding-top: 2px"></i>
+                </label>
+              </div>
+              <app-consequence-parameters-type [parameterId]="param['id']"></app-consequence-parameters-type>
+            </div>
+          </div>&ndash;&gt;
+        </mat-expansion-panel>
+      </mat-accordion>-->
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col col-12">
+
+    </div>
+  </div>
+</div>
