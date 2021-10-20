@@ -1,6 +1,5 @@
 ::ng-deep.mat-dialog-container {
-  padding-left: 4px !important;
-  padding-right: 4px !important;
+  padding: 4px !important;
 }
 
 .my-mat-header {
@@ -8,4 +7,12 @@
   padding: 8px 16px;
   margin-left: 12px;
   margin-right: 12px;
+}
+
+.trend-dialog {
+  overflow: unset;
+}
+
+::ng-deep.mat-dialog-container {
+  overflow-y: hidden !important;
 }

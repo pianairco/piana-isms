@@ -115,3 +115,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 /* dp-date-picker */
+
+@media (max-width: 576px) {
+  h1{font-size: 14px !important;}
+  .btn{font-size: 10px !important;}
+  .td{font-size: 10px !important;}
+}

@@ -44,10 +44,10 @@ public class ConsequenceParameters {
     @Autowired
     ConsequenceParametersService consequenceParametersService;
 
-    @GetMapping("coefficient-and-type-attributes/{parameter-id}")
-    public ResponseEntity<ResponseModel> getCoefficientAndTypeAttributes(
+    @GetMapping("name-coefficient-type-attributes/{parameter-id}")
+    public ResponseEntity<ResponseModel> getNameCoefficientAndTypeAttributes(
             @PathVariable("parameter-id") Long parameterId) {
-        Map<String, Object> res = consequenceParametersService.getCoefficientAndTypeAttributes(parameterId);
+        Map<String, Object> res = consequenceParametersService.getNameCoefficientAndTypeAttributes(parameterId);
 
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(res).build());
     }

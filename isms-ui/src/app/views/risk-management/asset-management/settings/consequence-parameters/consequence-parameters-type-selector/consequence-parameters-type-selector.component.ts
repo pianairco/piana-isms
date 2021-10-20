@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {AjaxCallService} from "../../../../../services/ajax-call.service";
 import {ActivatedRoute, ParamMap, Params} from "@angular/router";
+import {AjaxCallService} from "../../../../../../services/ajax-call.service";
 
 @Component({
   selector: 'app-consequence-parameters-type-selector',

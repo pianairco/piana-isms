@@ -28,7 +28,7 @@ public class ConsequenceParametersService {
     }
 
     @Transactional
-    public Map<String, Object> getCoefficientAndTypeAttributes(
+    public Map<String, Object> getNameCoefficientAndTypeAttributes(
             @PathVariable("parameter-id") Long parameterId) {
         List<Object[]> values = parametersRepository.findCoefficientAndTypeId(parameterId);
         List<ConsequenceParametersAttributeEntity> attributes =
@@ -36,6 +36,7 @@ public class ConsequenceParametersService {
         Map<String, Object> res = new LinkedHashMap<>();
         res.put("coefficient", values.get(0)[0]);
         res.put("parameterTypeId", values.get(0)[1]);
+        res.put("name", values.get(0)[2]);
         res.put("attributes", attributes);
         return res;
     }

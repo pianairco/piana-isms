@@ -3,9 +3,9 @@ import {Location} from '@angular/common';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import { Overlay } from '@angular/cdk/overlay';
-import {LoadingService} from "../../../../../services/loading.service";
-import {AjaxCallService} from "../../../../../services/ajax-call.service";
-import {ReloadForceService} from "../reload-force.service";
+import {ReloadForceService} from "../../../../../../services/reload-force.service";
+import {AjaxCallService} from "../../../../../../services/ajax-call.service";
+import {LoadingService} from "../../../../../../services/loading.service";
 
 @Component({
   templateUrl: './parameters-selector-dialog.component.html',
@@ -63,17 +63,18 @@ export class ModalParameterSelectorComponent implements OnInit {
         this.parameterTypeId = params.get('parameterTypeId')
         console.log(params, this.parameterId, this.parameterTypeId)
       });*/
-    const scrollStrategy = this.overlay.scrollStrategies.reposition();
+    const scrollStrategy = this.overlay.scrollStrategies.close();
     const dialogRef = this.dialog.open(ParametersSelectorDialogComponent, {
       disableClose: true,
+      panelClass: 'trend-dialog',
       width: '600px',
       data: {
         title: 'انتخاب یا ایجاد الگو',
         selectedTypeId: this.parameterTypeId,
         message: 'message'
       },
-      maxHeight: '90vh',
-      scrollStrategy: scrollStrategy
+      maxHeight: '100vh',
+      scrollStrategy: this.overlay.scrollStrategies.noop()
     });
     dialogRef.afterClosed().subscribe(async result => {
       console.log('The dialog was closed => ', result);

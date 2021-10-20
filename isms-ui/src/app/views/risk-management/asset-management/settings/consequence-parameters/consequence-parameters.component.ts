@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AjaxCallService} from "../../../../../services/ajax-call.service";
 import {BehaviorSubject} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ViewportScroller} from "@angular/common";
 
 @Component({
   selector: 'app-consequence-parameters',
@@ -14,7 +15,8 @@ export class ConsequenceParametersComponent implements OnInit {
 
   constructor(private ajaxCall: AjaxCallService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private viewportScroller: ViewportScroller) {
     console.log("ConsequenceParametersComponent construct")
   }
 
@@ -46,9 +48,17 @@ export class ConsequenceParametersComponent implements OnInit {
   }
 
   selectedParameterId = null;
+  selectedParamName = null;
 
-  onSelect(e) {
-    this.router.navigate(['values', this.selectedParameterId[0]], { relativeTo: this.route });
+  @ViewChild('pageInfo') pageInfo: ElementRef;
+
+  onSelect(selectedParamName) {
+    this.selectedParamName = selectedParamName;
+    // this.router.navigate(['values', this.selectedParameterId[0]], { relativeTo: this.route });
+    // const targetElement = this.pageInfo.nativeElement
+    // targetElement.scrollIntoView({behavior: "smooth"})
+    // document.querySelector('#router-outlet').scrollIntoView();
+    this.viewportScroller.scrollToAnchor('router-outlet');
   }
 
   paramOpened = new BehaviorSubject(0);

@@ -1,8 +1,13 @@
 <div class="container-fluid mx-sm-1 px-0 px-md-2">
   <div class="row">
-    <div class="col col-3">
+    <div class="col col-sm-12 col-md-3">
+      <div class="d-grid my-2">
+        <button class="btn btn-outline-success">
+          افزودن پارامتر جدید
+        </button>
+      </div>
       <ng-container *ngIf="parameters$ | async">
-        <a class="nav-link" [routerLink]="['values', param[0]]" routerLinkActive="selected"
+        <a class="nav-link" (click)="onSelect(param[1])" [routerLink]="['values', param[0]]" routerLinkActive="selected"
            *ngFor="let param of _parameters">
           {{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.' + (param[1]  | uppercase) | translate}}
         </a>
@@ -16,13 +21,8 @@
           <button class="btn btn-outline-secondary">{{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.' + (param[1]  | uppercase) | translate}}</button>
         </div>-->
       </ng-container>
-      <div class="d-grid my-2">
-        <button class="btn btn-outline-success">
-          افزودن پارامتر جدید
-        </button>
-      </div>
     </div>
-    <div class="col col-9">
+    <div class="col col-sm-12 col-md-9" id="router-outlet">
       <router-outlet></router-outlet>
       <!--multi-->
       <!--<mat-accordion class="example-headers-align" *ngIf="parameters$ | async">

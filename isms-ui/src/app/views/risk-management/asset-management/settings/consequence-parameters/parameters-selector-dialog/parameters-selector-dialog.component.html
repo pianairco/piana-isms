@@ -1,6 +1,8 @@
-<h1 mat-dialog-title class="my-mat-header">{{data['title']}}</h1>
-<div mat-dialog-content>
-  <div class="container">
+<h1 mat-dialog-title class="alert alert-primary text-center" >
+  <button type="button" class="btn-close float-end" aria-label="Close"></button>
+  {{data['title']}}</h1>
+<div mat-dialog-content >
+  <div class="container" style="height: 60vh; overflow: auto;">
     <div class="row align-items-start my-header pb-3">
       <div class="col col-12">
         <app-consequence-parameters-type-selector
@@ -10,8 +12,8 @@
     </div>
   </div>
 </div>
-<div mat-dialog-actions>
-  <div class="container">
+<div mat-dialog-actions class="alert alert-primary py-1 my-1" style="background-color: #cfe2ff">
+  <div class="container " >
     <div class="row">
       <div class="col col-auto px-4">
         <button class="btn btn-sm btn-outline-secondary" (click)="closeClick()">انصراف</button>
