@@ -14,11 +14,11 @@ public interface ConsequenceParametersRepository extends JpaRepository<Consequen
     @Query(value = "SELECT p.name FROM consequence_parameters p", nativeQuery = true)
     List<String> findParametersNames();
 
-    @Query(value = "SELECT p.id, p.name FROM consequence_parameters p", nativeQuery = true)
-    List<Object[]> findParametersIdAndName();
+    @Query(value = "SELECT p.id, p.name, p.alias FROM consequence_parameters p", nativeQuery = true)
+    List<Object[]> findParametersIdAndNameAndAlias();
 
-    @Query(value = "SELECT p.Coefficient, p.consequence_parameters_type_id, p.name FROM consequence_parameters p where id = :parameterId", nativeQuery = true)
-    List<Object[]> findCoefficientAndTypeId(@Param("parameterId") Long parameterId);
+    @Query(value = "SELECT p.name, p.alias, p.Coefficient, p.consequence_parameters_type_id FROM consequence_parameters p where id = :parameterId", nativeQuery = true)
+    List<Object[]> findNameAliasCoefficientAndTypeId(@Param("parameterId") Long parameterId);
 
     List<ConsequenceParametersEntity> findByConsequenceParametersTypeId(long consequenceParametersTypeId);
 

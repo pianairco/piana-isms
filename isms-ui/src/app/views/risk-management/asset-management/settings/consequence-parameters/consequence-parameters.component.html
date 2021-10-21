@@ -2,14 +2,14 @@
   <div class="row">
     <div class="col col-sm-12 col-md-3">
       <div class="d-grid my-2">
-        <button class="btn btn-outline-success">
+        <button class="btn btn-outline-success" (click)="newParameter()">
           افزودن پارامتر جدید
         </button>
       </div>
       <ng-container *ngIf="parameters$ | async">
         <a class="nav-link" (click)="onSelect(param[1])" [routerLink]="['values', param[0]]" routerLinkActive="selected"
            *ngFor="let param of _parameters">
-          {{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.' + (param[1]  | uppercase) | translate}}
+          {{param[2] ? ('RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.' + (param[2]  | uppercase) | translate) : param[1]}}
         </a>
 <!--        <mat-selection-list [multiple]="false" [(ngModel)]="selectedParameterId" (selectionChange)="onSelect($event)">-->
 <!--          <mat-list-option *ngFor="let param of _parameters" [value]="param[0]"-->

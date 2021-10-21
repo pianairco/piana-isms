@@ -14,6 +14,7 @@ export class ConsequenceParametersTypeComponent implements OnInit {
   _typeId = null;
   _coefficient = null;
   _paramName = null;
+  _paramAlias = null;
   _attributes = null;
   attributes$ = new BehaviorSubject(this._attributes);
   type = null;
@@ -45,7 +46,8 @@ export class ConsequenceParametersTypeComponent implements OnInit {
   }
 
   reload() {
-    this.ajaxCall.read("api/modules/riskmanagement/asset-management/settings/consequence-parameters/name-coefficient-type-attributes/" + this.parameterId)
+    this.ajaxCall.read(
+      "api/modules/riskmanagement/asset-management/settings/consequence-parameters/name-alias-coefficient-type-attributes/" + this.parameterId)
       .then(res => {
         if(res.status == 200 && res.data['code'] == 0) {
           console.log(res.data)
@@ -53,6 +55,7 @@ export class ConsequenceParametersTypeComponent implements OnInit {
           this._typeId = res.data['data']['parameterTypeId'];
           this._coefficient = res.data['data']['coefficient'];
           this._paramName = res.data['data']['name'];
+          this._paramAlias = res.data['data']['alias'];
         }
       });
   }

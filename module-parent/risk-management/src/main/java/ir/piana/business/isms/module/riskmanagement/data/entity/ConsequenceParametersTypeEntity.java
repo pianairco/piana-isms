@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "consequence_parameters_type")
-@SequenceGenerator(name = "master_seq", initialValue = 1, sequenceName = "master_seq", allocationSize = 1)
+@SequenceGenerator(name = "master_seq", initialValue = 1, sequenceName = "master_seq", allocationSize = 50)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

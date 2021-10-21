@@ -28,7 +28,8 @@ export class ConsequenceParametersComponent implements OnInit {
       this.parameters = res.data['data'];
     }*/
 
-    let res = await this.ajaxCall.readAsync("api/modules/riskmanagement/asset-management/settings/consequence-parameters/id-and-names");
+    let res = await this.ajaxCall.readAsync(
+      "api/modules/riskmanagement/asset-management/settings/consequence-parameters/id-and-names");
     if(res.status == 200 && res.data['code'] == 0) {
       console.log(res.data['data'])
       this.parameters = res.data['data'];
@@ -47,6 +48,12 @@ export class ConsequenceParametersComponent implements OnInit {
     this.parameters$.next(this._parameters);
   }
 
+  addNewParameter(id, name, alias) {
+    this._parameters.push([id, name, alias]);
+    console.log(this._parameters)
+    this.parameters$.next(this._parameters);
+  }
+
   selectedParameterId = null;
   selectedParamName = null;
 
@@ -54,10 +61,6 @@ export class ConsequenceParametersComponent implements OnInit {
 
   onSelect(selectedParamName) {
     this.selectedParamName = selectedParamName;
-    // this.router.navigate(['values', this.selectedParameterId[0]], { relativeTo: this.route });
-    // const targetElement = this.pageInfo.nativeElement
-    // targetElement.scrollIntoView({behavior: "smooth"})
-    // document.querySelector('#router-outlet').scrollIntoView();
     this.viewportScroller.scrollToAnchor('router-outlet');
   }
 
@@ -67,5 +70,16 @@ export class ConsequenceParametersComponent implements OnInit {
     this.paramOpened.next(parameterId);
     this.router.navigate(['values', parameterId], { relativeTo: this.route });
     // console.log(parameterId);
+  }
+
+  async newParameter() {
+    let res = await this.ajaxCall.saveAsync(
+      "api/modules/riskmanagement/asset-management/settings/consequence-parameters/create-new", null);
+    console.log(res, JSON.stringify(res))
+    if(res['status'] == 200 && res['data']['code'] == 0) {
+      this.addNewParameter(res['data']['data']['id'],
+        res['data']['data']['name'],
+        res['data']['data']['alias']);
+    }
   }
 }

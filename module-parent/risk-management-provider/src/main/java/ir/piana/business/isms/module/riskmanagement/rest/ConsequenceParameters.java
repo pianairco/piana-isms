@@ -14,11 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import java.math.BigDecimal;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController("consequenceParameters")
 @RequestMapping("/api/modules/riskmanagement/asset-management/settings/consequence-parameters")
@@ -37,22 +34,35 @@ public class ConsequenceParameters {
     @GetMapping("id-and-names")
     public ResponseEntity<ResponseModel> getIdAndNames() {
         List<String> parametersNames = parametersRepository.findParametersNames();
-        List<Object[]> parametersIdAndName = parametersRepository.findParametersIdAndName();
+        List<Object[]> parametersIdAndName = parametersRepository.findParametersIdAndNameAndAlias();
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(parametersIdAndName).build());
     }
 
     @Autowired
     ConsequenceParametersService consequenceParametersService;
 
-    @GetMapping("name-coefficient-type-attributes/{parameter-id}")
-    public ResponseEntity<ResponseModel> getNameCoefficientAndTypeAttributes(
+    @GetMapping("name-alias-coefficient-type-attributes/{parameter-id}")
+    public ResponseEntity<ResponseModel> getNameAliasCoefficientAndTypeAttributes(
             @PathVariable("parameter-id") Long parameterId) {
-        Map<String, Object> res = consequenceParametersService.getNameCoefficientAndTypeAttributes(parameterId);
+        Map<String, Object> res = consequenceParametersService
+                .getNameAliasCoefficientAndTypeAttributes(parameterId);
 
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(res).build());
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    @PostMapping(value = "create-new",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseModel> createNew() {
+        ConsequenceParametersEntity parameter = ConsequenceParametersEntity.builder()
+                .consequenceParametersTypeId(1)
+                .coefficient(1)
+                .name("تغییر دهید").build();
 
+        ConsequenceParametersEntity save = parametersRepository.save(parameter);
+        return ResponseEntity.ok(ResponseModel.builder().code(0)
+                .data(save).build());
+    }
 
     @GetMapping("list")
     public ResponseEntity<ResponseModel> list() {
