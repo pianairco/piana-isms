@@ -26,6 +26,17 @@ public interface ConsequenceParametersRepository extends JpaRepository<Consequen
     @Query(value = "update consequence_parameters p set p.consequence_parameters_type_id = :parameterTypeId where p.id = :parameterId", nativeQuery = true)
     void updateParameterTypeId(@Param("parameterId") Long parameterId,
                                @Param("parameterTypeId") Long parameterTypeId);
+
+    @Modifying
+    @Query(value = "update consequence_parameters p set p.name = :name where p.id = :parameterId", nativeQuery = true)
+    void updateParameterName(@Param("parameterId") Long parameterId,
+                               @Param("name") String name);
+
+    @Modifying
+    @Query(value = "update consequence_parameters p set p.coefficient = :oefficient where p.id = :parameterId", nativeQuery = true)
+    void updateParameterCoefficient(@Param("parameterId") Long parameterId,
+                             @Param("coefficient") double coefficient);
+
 //    @Query(value = "SELECT u.id FROM users u, weekly_matches_competition_prediction p WHERE " +
 //            "p.id = :predictionId and u.id = p.user_id between :first and :second and wm.weekly_match_status_id in (1, 2, 3)", nativeQuery = true)
 //    List<Long> findRelatedToCompetition(@Param("predictionId") String predictionId);

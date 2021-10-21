@@ -50,20 +50,6 @@ public class ConsequenceParameters {
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(res).build());
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
-    @PostMapping(value = "create-new",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseModel> createNew() {
-        ConsequenceParametersEntity parameter = ConsequenceParametersEntity.builder()
-                .consequenceParametersTypeId(1)
-                .coefficient(1)
-                .name("تغییر دهید").build();
-
-        ConsequenceParametersEntity save = parametersRepository.save(parameter);
-        return ResponseEntity.ok(ResponseModel.builder().code(0)
-                .data(save).build());
-    }
-
     @GetMapping("list")
     public ResponseEntity<ResponseModel> list() {
         List<ConsequenceParametersAttributeEntity> relatedToParameter = attributeRepository
@@ -79,6 +65,21 @@ public class ConsequenceParameters {
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(all).build());
     }
 
+    //#region persist region
+    @Transactional(propagation = Propagation.REQUIRED)
+    @PostMapping(value = "create-new",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseModel> createNew() {
+        ConsequenceParametersEntity parameter = ConsequenceParametersEntity.builder()
+                .consequenceParametersTypeId(1)
+                .coefficient(1)
+                .name("تغییر دهید").build();
+
+        ConsequenceParametersEntity save = parametersRepository.save(parameter);
+        return ResponseEntity.ok(ResponseModel.builder().code(0)
+                .data(save).build());
+    }
+
     @Transactional(propagation = Propagation.REQUIRED)
     @PutMapping(value = "update-type",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -91,4 +92,31 @@ public class ConsequenceParameters {
                 .updateParameterTypeId(parameterId, parameterTypeId);
         return ResponseEntity.ok(ResponseModel.builder().code(0).build());
     }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @PutMapping(value = "update-name",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseModel> updateName(@RequestBody Map<String, Object> map) {
+        Long parameterId = (Long) map.get("parameterId");
+        String name = (String) map.get("name");
+
+        parametersRepository
+                .updateParameterName(parameterId, name);
+        return ResponseEntity.ok(ResponseModel.builder().code(0).build());
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @PutMapping(value = "update-coefficient",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseModel> updateCoefficient(@RequestBody Map<String, Object> map) {
+        Long parameterId = (Long) map.get("parameterId");
+        double coefficient = (Double) map.get("coefficient");
+
+        parametersRepository
+                .updateParameterCoefficient(parameterId, coefficient);
+        return ResponseEntity.ok(ResponseModel.builder().code(0).build());
+    }
+    //#endregion
 }
