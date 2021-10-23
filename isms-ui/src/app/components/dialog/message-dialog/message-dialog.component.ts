@@ -3,14 +3,14 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-common-dialog',
-  templateUrl: './common-dialog.component.html',
-  styleUrls: ['./common-dialog.component.css']
+  selector: 'app-message-dialog',
+  templateUrl: './message-dialog.component.html',
+  styleUrls: ['./message-dialog.component.css']
 })
-export class CommonDialogComponent implements OnInit {
+export class MessageDialogComponent implements OnInit {
   constructor(
     private router: Router,
-    public dialogRef: MatDialogRef<CommonDialogComponent>,
+    public dialogRef: MatDialogRef<MessageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: object) {
   }
 
@@ -23,5 +23,9 @@ export class CommonDialogComponent implements OnInit {
       status: 1
     });
   }
+}
 
+export enum MessageType {
+  ERROR,
+  INFO
 }

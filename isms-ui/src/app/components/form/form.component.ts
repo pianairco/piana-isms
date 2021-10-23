@@ -10,7 +10,7 @@ import {Layout} from "../form-element/form-element.component";
 import axios from "axios";
 import {AjaxCallService} from "../../services/ajax-call.service";
 import {MatDialog} from "@angular/material/dialog";
-import {CommonDialogComponent} from "../common-dialog/common-dialog.component";
+import {CommonDialogComponent} from "../dialog/common-dialog/common-dialog.component";
 
 @Component({
   selector: 'app-form',

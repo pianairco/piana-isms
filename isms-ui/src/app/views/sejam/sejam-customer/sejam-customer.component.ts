@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AjaxCallService} from "../../../services/ajax-call.service";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {CommonDialogComponent} from "../../../components/common-dialog/common-dialog.component";
+import {CommonDialogComponent} from "../../../components/dialog/common-dialog/common-dialog.component";
 
 @Component({
   selector: 'app-sejam-customer',

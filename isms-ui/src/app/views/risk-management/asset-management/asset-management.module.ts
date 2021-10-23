@@ -11,7 +11,7 @@ import {
   ParametersSelectorDialogComponent
 } from "./settings/consequence-parameters/parameters-selector-dialog/parameters-selector-dialog.component";
 import {ConsequenceParametersTypeSelectorComponent} from "./settings/consequence-parameters/consequence-parameters-type-selector/consequence-parameters-type-selector.component";
-import {ConsequenceParametersTypeComponent} from "./settings/consequence-parameters/consequence-parameters-type/consequence-parameters-type.component";
+import {ConsequenceParametersDetailComponent} from "./settings/consequence-parameters/consequence-parameters-detail/consequence-parameters-detail.component";
 
 
 
@@ -19,7 +19,7 @@ import {ConsequenceParametersTypeComponent} from "./settings/consequence-paramet
   declarations: [
     AssetManagementComponent,
     ConsequenceParametersComponent,
-    ConsequenceParametersTypeComponent,
+    ConsequenceParametersDetailComponent,
     ConsequenceParametersTypeSelectorComponent,
     ModalParameterSelectorComponent,
     ParametersSelectorDialogComponent

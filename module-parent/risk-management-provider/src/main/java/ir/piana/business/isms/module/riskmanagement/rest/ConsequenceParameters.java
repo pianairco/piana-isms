@@ -98,7 +98,7 @@ public class ConsequenceParameters {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseModel> updateName(@RequestBody Map<String, Object> map) {
-        Long parameterId = (Long) map.get("parameterId");
+        Long parameterId = ((Number) map.get("parameterId")).longValue();
         String name = (String) map.get("name");
 
         parametersRepository
@@ -111,11 +111,19 @@ public class ConsequenceParameters {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseModel> updateCoefficient(@RequestBody Map<String, Object> map) {
-        Long parameterId = (Long) map.get("parameterId");
-        double coefficient = (Double) map.get("coefficient");
+        Long parameterId = ((Number) map.get("parameterId")).longValue();
+        double coefficient = Double.parseDouble(map.get("coefficient").toString());
 
         parametersRepository
                 .updateParameterCoefficient(parameterId, coefficient);
+        return ResponseEntity.ok(ResponseModel.builder().code(0).build());
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @DeleteMapping(value = "delete/{parameterId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseModel> updateCoefficient(@PathVariable ("parameterId") long parameterId) {
+        parametersRepository.deleteById(parameterId);
         return ResponseEntity.ok(ResponseModel.builder().code(0).build());
     }
     //#endregion

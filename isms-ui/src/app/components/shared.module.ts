@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
 
 import {TopbarComponent} from "./topbar/topbar.component";
 import {FooterComponent} from "./footer/footer.component";
@@ -7,7 +7,7 @@ import {LoadingComponent, LoadingDialogComponent} from "./loading/loading.compon
 // import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "angularx-social-login";
 import {PictureBoxComponent} from './picture-box/picture-box.component';
 import {HeaderComponent} from './header/header.component';
-import {CommonModule} from "@angular/common";
+import {CommonModule, LOCATION_INITIALIZED} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TipComponent} from "./tip/tip.component";
@@ -25,7 +25,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {InputMaskDirective} from "../directives/input-mask.directive";
-import {CommonDialogComponent} from "./common-dialog/common-dialog.component";
+import {CommonDialogComponent} from "./dialog/common-dialog/common-dialog.component";
 import {FormElementComponent} from "./form-element/form-element.component";
 import {NgxMaskModule} from "ngx-mask";
 import {MatIconModule} from "@angular/material/icon";
@@ -63,8 +63,38 @@ import {QueryCreatorService} from "./query-creator/query-creator.service";
 import {OptionQueryCreatorComponent} from "./query-creator/template/option-query-creator/option-query-creator.component";
 import {PianaDropdownComponent} from "./piana-dropdown/piana-dropdown.component";
 import {PianaSidebarComponent} from "./piana-sidebar/piana-sidebar.component";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MessageDialogComponent} from "./dialog/message-dialog/message-dialog.component";
+import {ConfirmDialogComponent} from "./dialog/confirm-dialog/confirm-dialog.component";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+export function ApplicationInitializerFactory(translate: TranslateService, injector: Injector) {
+
+  return async () => {
+
+    await injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
+
+    translate.addLangs(['en', 'fa']);
+
+    const defaultLang: string = 'fa';
+    translate.setDefaultLang(defaultLang);
+
+    try {
+      await translate.use(defaultLang).toPromise();
+    } catch (err) {
+      console.log(err);
+    }
+
+    console.log(`Successfully initialized ${defaultLang} language.`);
+  };
+}
 
 @NgModule({
   declarations: [
@@ -86,6 +116,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     InjectableDialogComponent,
     SidebarComponent,
     CommonDialogComponent,
+    MessageDialogComponent,
+    ConfirmDialogComponent,
     FormElementComponent,
     FormComponent,
     SelectableIdsPipe,
@@ -114,6 +146,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     FormElementComponent,
     FormComponent,
     CommonDialogComponent,
+    MessageDialogComponent,
+    ConfirmDialogComponent,
     InputMaskDirective,
     TopbarComponent,
     FooterComponent,
@@ -188,10 +222,24 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatPaginatorModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   ],
   providers: [
     QueryCreatorService,
+    {
+      multi: true,
+      provide: APP_INITIALIZER,
+      deps: [TranslateService, Injector],
+      useFactory: ApplicationInitializerFactory
+    },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: PERFECT_SCROLLBAR_CONFIG

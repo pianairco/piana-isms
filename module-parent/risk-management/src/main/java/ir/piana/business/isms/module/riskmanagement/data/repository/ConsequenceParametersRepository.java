@@ -33,7 +33,7 @@ public interface ConsequenceParametersRepository extends JpaRepository<Consequen
                                @Param("name") String name);
 
     @Modifying
-    @Query(value = "update consequence_parameters p set p.coefficient = :oefficient where p.id = :parameterId", nativeQuery = true)
+    @Query(value = "update consequence_parameters p set p.coefficient = :coefficient where p.id = :parameterId", nativeQuery = true)
     void updateParameterCoefficient(@Param("parameterId") Long parameterId,
                              @Param("coefficient") double coefficient);
 

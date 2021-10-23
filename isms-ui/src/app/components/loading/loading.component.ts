@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LoadingService} from "../../services/loading.service";
 import {MatDialog} from "@angular/material/dialog";
-import {CommonDialogComponent} from "../common-dialog/common-dialog.component";
 
 @Component({
   selector: 'app-loading',

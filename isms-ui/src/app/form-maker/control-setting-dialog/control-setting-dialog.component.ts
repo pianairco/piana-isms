@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormElementType, formElementTypes, Layout} from "../../components/form-element/form-element.component";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {CommonDialogComponent} from "../../components/common-dialog/common-dialog.component";
+import {CommonDialogComponent} from "../../components/dialog/common-dialog/common-dialog.component";
 import {FormMakerService} from "../form-maker.service";
 
 @Component({

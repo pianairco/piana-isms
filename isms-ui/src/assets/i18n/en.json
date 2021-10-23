@@ -1,4 +1,8 @@
 {
+  "COMMON": {
+    "YES": "yes",
+    "NO": "no"
+  },
   "RISK-MANAGEMENT": {
     "SETTINGS": {
       "CONSEQUENCE-PARAMETERS": {

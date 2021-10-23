@@ -1,8 +1,16 @@
-<h1 mat-dialog-title>{{data['title']}}</h1>
+<div mat-dialog-title class="alert"
+     [class.alert-danger]="data['messageType'] == 0"
+     [class.alert-info]="data['messageType'] == 1">
+  <span class="float-start mx-2">
+    <i *ngIf="data['messageType'] == 0" class="fas fa-bomb"></i>
+    <i *ngIf="data['messageType'] == 1" class="fas fa-exclamation-circle"></i>
+  </span>
+  <h1 class="mb-0">{{data['title']}}</h1>
+</div>
 <div mat-dialog-content>
   <div class="container">
     <div class="row align-items-start my-header pb-3">
-      <div class="col col-12">
+      <div class="col col-12 ">
         <p>{{data['message']}}</p>
       </div>
     </div>

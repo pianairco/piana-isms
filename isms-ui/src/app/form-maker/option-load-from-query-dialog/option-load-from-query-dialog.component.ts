@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {CommonDialogComponent} from "../../components/common-dialog/common-dialog.component";
+import {CommonDialogComponent} from "../../components/dialog/common-dialog/common-dialog.component";
 import {Layout} from "../../components/form-element/form-element.component";
 import {QueryStructure} from "../../components/query-creator/query-creator.service";
 

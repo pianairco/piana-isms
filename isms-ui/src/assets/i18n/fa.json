@@ -1,4 +1,8 @@
 {
+  "COMMON": {
+    "YES": "بلی",
+    "NO": "خیر"
+  },
   "RISK-MANAGEMENT": {
     "SETTINGS": {
       "CONSEQUENCE-PARAMETERS": {

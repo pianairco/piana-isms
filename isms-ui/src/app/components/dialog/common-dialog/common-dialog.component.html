@@ -1,0 +1,21 @@
+<div mat-dialog-title>
+  <h1 class="mb-0">{{data['title']}}</h1>
+</div>
+<div mat-dialog-content>
+  <div class="container">
+    <div class="row align-items-start my-header pb-3">
+      <div class="col col-12 ">
+        <p>{{data['message']}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="container">
+    <div class="row">
+      <div class="col col-auto px-4">
+        <button class="btn btn-sm btn-outline-secondary" (click)="closeClick()">بستن</button>
+      </div>
+    </div>
+  </div>
+</div>

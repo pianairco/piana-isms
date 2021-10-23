@@ -3,6 +3,7 @@ import {AjaxCallService} from "../../../../../services/ajax-call.service";
 import {BehaviorSubject} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ViewportScroller} from "@angular/common";
+import {ReloadForceService} from "../../../../../services/reload-force.service";
 
 @Component({
   selector: 'app-consequence-parameters',
@@ -16,31 +17,32 @@ export class ConsequenceParametersComponent implements OnInit {
   constructor(private ajaxCall: AjaxCallService,
               private router: Router,
               private route: ActivatedRoute,
-              private viewportScroller: ViewportScroller) {
+              private viewportScroller: ViewportScroller,
+              private reloadForceService: ReloadForceService) {
     console.log("ConsequenceParametersComponent construct")
   }
 
   async ngOnInit() {
     console.log("ConsequenceParametersComponent init")
-    /*let res = await this.ajaxCall.readAsync("api/modules/riskmanagement/asset-management/settings/consequence-parameters/list");
-    if(res.status == 200 && res.data['code'] == 0) {
-      console.log(res.data['data'])
-      this.parameters = res.data['data'];
-    }*/
 
+    this.reloadForceService.subscribeReloadObject('consequence-parameters-id-name')
+      .subscribe(res => {
+        console.log("reload received", res);
+        if(!res)
+          return;
+        this.reload();
+      });
+
+    this.reload();
+  }
+
+  async reload() {
     let res = await this.ajaxCall.readAsync(
       "api/modules/riskmanagement/asset-management/settings/consequence-parameters/id-and-names");
     if(res.status == 200 && res.data['code'] == 0) {
       console.log(res.data['data'])
       this.parameters = res.data['data'];
     }
-
-
-/*    d.then(res => {
-        if(res.status == 200 && res.data['code'] == 0) {
-          this.parameters = res.data['data'];
-        }
-      });*/
   }
 
   set parameters(_parameters) {

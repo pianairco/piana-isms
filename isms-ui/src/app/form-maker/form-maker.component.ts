@@ -13,7 +13,7 @@ import {ColumnSettingDialogComponent} from "./column-setting-dialog/column-setti
 import {AjaxCallService} from "../services/ajax-call.service";
 import {LoadingService} from "../services/loading.service";
 import {NotificationService} from "../services/notification.service";
-import {CommonDialogComponent} from "../components/common-dialog/common-dialog.component";
+import {CommonDialogComponent} from "../components/dialog/common-dialog/common-dialog.component";
 import {FormMakerModule} from "./form-maker.module";
 import {FormMakerService} from "./form-maker.service";
 import {CdkDrag} from "@angular/cdk/drag-drop";
