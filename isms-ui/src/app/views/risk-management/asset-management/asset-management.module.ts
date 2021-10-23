@@ -10,9 +10,10 @@ import {
   ModalParameterSelectorComponent,
   ParametersSelectorDialogComponent
 } from "./settings/consequence-parameters/parameters-selector-dialog/parameters-selector-dialog.component";
-import {ConsequenceParametersTypeSelectorComponent} from "./settings/consequence-parameters/consequence-parameters-type-selector/consequence-parameters-type-selector.component";
 import {ConsequenceParametersDetailComponent} from "./settings/consequence-parameters/consequence-parameters-detail/consequence-parameters-detail.component";
-
+import {TypeSelectorComponent} from "./settings/consequence-parameters/parameters-selector-dialog/type-selector/type-selector.component";
+import {TypeCreatorComponent} from "./settings/consequence-parameters/parameters-selector-dialog/type-creator/type-creator.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -20,9 +21,10 @@ import {ConsequenceParametersDetailComponent} from "./settings/consequence-param
     AssetManagementComponent,
     ConsequenceParametersComponent,
     ConsequenceParametersDetailComponent,
-    ConsequenceParametersTypeSelectorComponent,
     ModalParameterSelectorComponent,
-    ParametersSelectorDialogComponent
+    ParametersSelectorDialogComponent,
+    TypeSelectorComponent,
+    TypeCreatorComponent
   ],
   imports: [
     CommonModule,

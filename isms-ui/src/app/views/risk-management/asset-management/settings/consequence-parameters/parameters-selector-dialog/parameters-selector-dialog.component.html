@@ -1,22 +1,36 @@
 <h1 mat-dialog-title class="alert alert-primary text-center" >
   <button type="button" class="btn-close float-end" aria-label="Close"></button>
-  {{data['title']}}</h1>
+  <span *ngIf="!(readyToCreate | async)">{{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.PARAMETERS-SELECTOR-DIALOG.TITLE-SELECT' | translate}}</span>
+  <span *ngIf="(readyToCreate | async)">{{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.PARAMETERS-SELECTOR-DIALOG.TITLE-CREATE' | translate}}</span>
+</h1>
 <div mat-dialog-content >
   <div class="container" style="height: 60vh; overflow: auto;">
     <div class="row align-items-start my-header pb-3">
       <div class="col col-12">
-        <app-consequence-parameters-type-selector
+        <app-type-selector
+          [parameterTypeId]="selectedTypeId"
+          *ngIf="(readyToCreate | async) == false"
+          (onRequestToCreate)="requestToCreate($event)"
+                           (onSelect)="onSelectParameterType($event)"></app-type-selector>
+
+        <app-type-creator
+          [parameterTypeId]="selectedTypeId"
+          *ngIf="(readyToCreate | async) == true"></app-type-creator>
+
+        <!--<app-consequence-parameters-type-selector
           (onSelect)="onSelectParameterType($event)"
-          [parameterTypeId]="data['selectedTypeId']"></app-consequence-parameters-type-selector>
+          [parameterTypeId]="data['selectedTypeId']"></app-consequence-parameters-type-selector>-->
       </div>
     </div>
   </div>
 </div>
-<div mat-dialog-actions class="alert alert-primary py-1 my-1" style="background-color: #cfe2ff">
+<div mat-dialog-actions class="alert alert-primary py-1 my-1 px-1" style="background-color: #cfe2ff">
   <div class="container " >
     <div class="row">
-      <div class="col col-auto px-4">
-        <button class="btn btn-sm btn-outline-secondary" (click)="closeClick()">انصراف</button>
+      <div class="col col-auto px-2">
+        <button *ngIf="readyToCreate | async"
+                class="btn btn-sm btn-outline-success" (click)="saveAndSelect()">ذخیره و انتخاب</button>
+        <button class="btn btn-sm btn-outline-danger mx-2" (click)="closeClick()">انصراف</button>
       </div>
     </div>
   </div>

@@ -6,21 +6,32 @@ import { Overlay } from '@angular/cdk/overlay';
 import {ReloadForceService} from "../../../../../../services/reload-force.service";
 import {AjaxCallService} from "../../../../../../services/ajax-call.service";
 import {LoadingService} from "../../../../../../services/loading.service";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   templateUrl: './parameters-selector-dialog.component.html',
   styleUrls: ['./parameters-selector-dialog.component.css']
 })
 export class ParametersSelectorDialogComponent implements OnInit {
+  selectedTypeId = null;
 
-  constructor(public dialogRef: MatDialogRef<ParametersSelectorDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: object) { }
-
-  ngOnInit(): void {
-    console.log(JSON.stringify(this.data))
+  constructor(private ajaxCall: AjaxCallService,
+              public dialogRef: MatDialogRef<ParametersSelectorDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: object) {
+    this.selectedTypeId = this.data['selectedTypeId']
   }
 
-  closeClick () {
+  ngOnInit(): void {
+    // console.log(JSON.stringify(this.data))
+  }
+
+  closeClick() {
+    this.dialogRef.close({
+      status: 1
+    });
+  }
+
+  saveAndSelect() {
     this.dialogRef.close({
       status: 1
     });
@@ -32,6 +43,12 @@ export class ParametersSelectorDialogComponent implements OnInit {
       parameterTypeId: parameterTypeId
     });
   }
+
+  readyToCreate: BehaviorSubject<any> = new BehaviorSubject<any>(false);
+
+  requestToCreate(parameterTypeId) {
+    this.readyToCreate.next(true);
+  }
 }
 
 @Component({
@@ -39,7 +56,7 @@ export class ParametersSelectorDialogComponent implements OnInit {
 })
 export class ModalParameterSelectorComponent implements OnInit {
   parameterId;
-  parameterTypeId;
+  assignedParameterTypeId;
 
   constructor(
     private reloadForceService: ReloadForceService,
@@ -56,22 +73,20 @@ export class ModalParameterSelectorComponent implements OnInit {
   ngOnInit() {
     console.log("ModalParameterSelectorComponent init")
     this.parameterId = +this.route.snapshot.paramMap.get('parameterId');
-    this.parameterTypeId = +this.route.snapshot.paramMap.get('parameterTypeId');
+    this.assignedParameterTypeId = +this.route.snapshot.paramMap.get('assignedParameterTypeId');
     /*this.route.paramMap.subscribe(
       (params: ParamMap) => {
         this.parameterId = params.get('parameterId')
         this.parameterTypeId = params.get('parameterTypeId')
         console.log(params, this.parameterId, this.parameterTypeId)
       });*/
-    const scrollStrategy = this.overlay.scrollStrategies.close();
+    // const scrollStrategy = this.overlay.scrollStrategies.close();
     const dialogRef = this.dialog.open(ParametersSelectorDialogComponent, {
       disableClose: true,
       panelClass: 'trend-dialog',
       width: '600px',
       data: {
-        title: 'انتخاب یا ایجاد الگو',
-        selectedTypeId: this.parameterTypeId,
-        message: 'message'
+        selectedTypeId: this.assignedParameterTypeId,
       },
       maxHeight: '100vh',
       scrollStrategy: this.overlay.scrollStrategies.noop()

@@ -1,0 +1,26 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">ردیف</th>
+      <th scope="col">مقدار</th>
+      <th scope="col">برچسب</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngIf="attributes$ | async">
+      <ng-container *ngFor="let attr of attributes$ | async; let i = index">
+        <tr (click)="selectedAttr = attr">
+          <th scope="row">{{attr['orders']}}<!--{{i}}--></th>
+          <td>{{attr['value']}}</td>
+          <td>{{attr['label']}}</td>
+        </tr>
+        <tr [@openClose]="ifOpen(attr)">
+          <td colspan="3" *ngIf="attr === selectedAttr">
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+    </tbody>
+  </table>
+</div>

@@ -65,6 +65,15 @@ public class ConsequenceParameters {
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(all).build());
     }
 
+    @GetMapping("request-to-create/{parameter-type-id}")
+    public ResponseEntity<ResponseModel> requestToCreate(
+            @PathVariable("parameter-type-id") long parameterTypeId) {
+        List<ConsequenceParametersAttributeEntity> relatedToParameterType = attributeRepository
+                .findByConsequenceParametersTypeId(parameterTypeId);
+
+        return ResponseEntity.ok(ResponseModel.builder().code(0).data(relatedToParameterType).build());
+    }
+
     //#region persist region
     @Transactional(propagation = Propagation.REQUIRED)
     @PostMapping(value = "create-new",

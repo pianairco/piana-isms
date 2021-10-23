@@ -6,6 +6,10 @@
   "RISK-MANAGEMENT": {
     "SETTINGS": {
       "CONSEQUENCE-PARAMETERS": {
+        "PARAMETERS-SELECTOR-DIALOG": {
+          "TITLE-SELECT": "Select Type",
+          "TITLE-CREATE": "Create Type"
+        },
         "CONFIDENTIALITY": "Confidentiality (C)",
         "INTEGRITY": "Integrity (I)",
         "AVAILABILITY": "Availability (A)"

@@ -6,6 +6,10 @@
   "RISK-MANAGEMENT": {
     "SETTINGS": {
       "CONSEQUENCE-PARAMETERS": {
+        "PARAMETERS-SELECTOR-DIALOG": {
+          "TITLE-SELECT": "انتخاب نوع پارامتر",
+          "TITLE-CREATE": "ایجاد نوع پارامتر"
+        },
         "CONFIDENTIALITY": "محرمانگی (C)",
         "INTEGRITY": "یکپارچگی (I)",
         "AVAILABILITY": "دسترسی پذیری (A)"

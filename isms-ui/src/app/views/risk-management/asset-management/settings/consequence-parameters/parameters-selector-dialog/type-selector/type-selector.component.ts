@@ -1,27 +1,20 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {ActivatedRoute, ParamMap, Params} from "@angular/router";
-import {AjaxCallService} from "../../../../../../services/ajax-call.service";
+import {AjaxCallService} from "../../../../../../../services/ajax-call.service";
 
 @Component({
-  selector: 'app-consequence-parameters-type-selector',
-  templateUrl: './consequence-parameters-type-selector.component.html',
-  styleUrls: ['./consequence-parameters-type-selector.component.css']
+  selector: 'app-type-selector',
+  templateUrl: './type-selector.component.html',
+  styleUrls: ['./type-selector.component.css']
 })
-export class ConsequenceParametersTypeSelectorComponent implements OnInit {
-  @Input() parameterTypeId;
+export class TypeSelectorComponent implements OnInit {
+  @Input() parameterTypeId: number;
   @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onRequestToCreate: EventEmitter<any> = new EventEmitter<any>();
   _parameters = null;
   parameters$ = new BehaviorSubject(this._parameters);
 
-  toString(obj) {
-    console.log(JSON.stringify(obj))
-    return JSON.stringify(obj);
-  }
-
-  constructor(private ajaxCall: AjaxCallService,
-              private route: ActivatedRoute) {
-  }
+  constructor(private ajaxCall: AjaxCallService) { }
 
   ngOnInit(): void {
     this.ajaxCall.read("api/modules/riskmanagement/asset-management/settings/consequence-parameters-type/list-attributes")
@@ -40,5 +33,9 @@ export class ConsequenceParametersTypeSelectorComponent implements OnInit {
 
   select(parameterTypeId) {
     this.onSelect.emit(+parameterTypeId);
+  }
+
+  requestToCreate(parameterTypeId) {
+    this.onRequestToCreate.emit(+parameterTypeId);
   }
 }
