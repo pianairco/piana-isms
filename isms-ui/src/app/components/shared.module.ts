@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 
 import {TopbarComponent} from "./topbar/topbar.component";
 import {FooterComponent} from "./footer/footer.component";
@@ -7,12 +7,12 @@ import {LoadingComponent, LoadingDialogComponent} from "./loading/loading.compon
 // import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "angularx-social-login";
 import {PictureBoxComponent} from './picture-box/picture-box.component';
 import {HeaderComponent} from './header/header.component';
-import {CommonModule, LOCATION_INITIALIZED} from "@angular/common";
+import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TipComponent} from "./tip/tip.component";
 import {InfoBoxComponent} from "./info-box/info-box.component";
-import { SearchBoxComponent } from './search-box/search-box.component';
+import {SearchBoxComponent} from './search-box/search-box.component';
 import {InjectableDialogComponent} from "./search-box/injectable-dialog.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {SearchViewComponent} from "./search-view/search-view.component";
@@ -39,7 +39,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {CommonSearchComponent} from "./common-search/common-search.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {SpinnerDialogComponent} from "./spinner-dialog/spinner-dialog.component";
-import { ThousandSeparatorPipe } from '../pipes/thousand-separator.pipe';
+import {ThousandSeparatorPipe} from '../pipes/thousand-separator.pipe';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {CommonFormComponent} from "./common-form/common-form.component";
 import {MatFileUploadModule} from "mat-file-upload";
@@ -55,46 +55,20 @@ import {SelectableArrayTextPipe} from "./pipes/SelectableArrayText";
 import {MatButtonModule} from "@angular/material/button";
 import {MatRadioModule} from "@angular/material/radio";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
-import { QueryCreatorComponent } from './query-creator/query-creator.component';
+import {QueryCreatorComponent} from './query-creator/query-creator.component';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {QueryCreatorDialogComponent} from "./query-creator/query-creator-dialog/query-creator-dialog.component";
-import { SelectQueryComponent } from './query-creator/select-query/select-query.component';
+import {SelectQueryComponent} from './query-creator/select-query/select-query.component';
 import {QueryCreatorService} from "./query-creator/query-creator.service";
 import {OptionQueryCreatorComponent} from "./query-creator/template/option-query-creator/option-query-creator.component";
 import {PianaDropdownComponent} from "./piana-dropdown/piana-dropdown.component";
 import {PianaSidebarComponent} from "./piana-sidebar/piana-sidebar.component";
-import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MessageDialogComponent} from "./dialog/message-dialog/message-dialog.component";
 import {ConfirmDialogComponent} from "./dialog/confirm-dialog/confirm-dialog.component";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {HttpClientModule} from "@angular/common/http";
 
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
-
-export function ApplicationInitializerFactory(translate: TranslateService, injector: Injector) {
-
-  return async () => {
-
-    await injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
-
-    translate.addLangs(['en', 'fa']);
-
-    const defaultLang: string = 'fa';
-    translate.setDefaultLang(defaultLang);
-
-    try {
-      await translate.use(defaultLang).toPromise();
-    } catch (err) {
-      console.log(err);
-    }
-
-    console.log(`Successfully initialized ${defaultLang} language.`);
-  };
-}
 
 @NgModule({
   declarations: [
@@ -187,6 +161,7 @@ export function ApplicationInitializerFactory(translate: TranslateService, injec
     QueryCreatorComponent,
     MatButtonToggleModule,
     OptionQueryCreatorComponent,
+    NgxMaskModule
   ],
   imports: [
     MatButtonToggleModule,
@@ -214,7 +189,7 @@ export function ApplicationInitializerFactory(translate: TranslateService, injec
     MatSlideToggleModule,
     PerfectScrollbarModule,
     NgbModule,
-    NgxMaskModule,
+    NgxMaskModule.forRoot(),
     MatIconModule,
     MatListModule,
     MatCheckboxModule,
@@ -224,26 +199,20 @@ export function ApplicationInitializerFactory(translate: TranslateService, injec
     MatTooltipModule,
     MatButtonModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+    TranslateModule,
   ],
   providers: [
     QueryCreatorService,
-    {
-      multi: true,
-      provide: APP_INITIALIZER,
-      deps: [TranslateService, Injector],
-      useFactory: ApplicationInitializerFactory
-    },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: PERFECT_SCROLLBAR_CONFIG
     }
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+  static forRoot(): ModuleWithProviders<any> {
+    return {
+      ngModule: SharedModule
+    };
+  }
+}

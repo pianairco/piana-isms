@@ -3,7 +3,7 @@
     <div class="col col-sm-12 col-md-3">
       <div class="d-grid my-2">
         <button class="btn btn-outline-success" (click)="newParameter()">
-          افزودن پارامتر جدید
+          افزودن پارامتر جدید-{{'COMMON.YES' | translate}}
         </button>
       </div>
       <ng-container *ngIf="parameters$ | async">
