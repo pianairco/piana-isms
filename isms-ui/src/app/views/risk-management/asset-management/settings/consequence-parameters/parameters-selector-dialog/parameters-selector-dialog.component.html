@@ -30,7 +30,10 @@
       <div class="col col-auto px-2">
         <button *ngIf="readyToCreate | async"
                 class="btn btn-sm btn-outline-success" (click)="saveAndSelect()">ذخیره و انتخاب</button>
-        <button class="btn btn-sm btn-outline-danger mx-2" (click)="closeClick()">انصراف</button>
+        <button *ngIf="readyToCreate | async"
+                class="btn btn-sm btn-outline-danger mx-2" (click)="returnToSelect()">بازگشت</button>
+        <button *ngIf="(readyToCreate | async) == false"
+                class="btn btn-sm btn-outline-danger mx-2" (click)="closeClick()">انصراف</button>
       </div>
     </div>
   </div>

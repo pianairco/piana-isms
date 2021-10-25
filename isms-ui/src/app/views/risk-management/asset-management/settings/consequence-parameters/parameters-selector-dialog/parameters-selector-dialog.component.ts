@@ -47,7 +47,13 @@ export class ParametersSelectorDialogComponent implements OnInit {
   readyToCreate: BehaviorSubject<any> = new BehaviorSubject<any>(false);
 
   requestToCreate(parameterTypeId) {
+    this.selectedTypeId = parameterTypeId;
     this.readyToCreate.next(true);
+  }
+
+  returnToSelect() {
+    this.selectedTypeId = null;
+    this.readyToCreate.next(false);
   }
 }
 

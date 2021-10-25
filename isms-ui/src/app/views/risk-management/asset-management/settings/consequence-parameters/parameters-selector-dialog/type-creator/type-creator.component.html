@@ -5,22 +5,51 @@
       <th scope="col">ردیف</th>
       <th scope="col">مقدار</th>
       <th scope="col">برچسب</th>
+      <th scope="col" width="25%">فعالیت</th>
     </tr>
     </thead>
     <tbody>
-    <ng-container *ngIf="attributes$ | async">
-      <ng-container *ngFor="let attr of attributes$ | async; let i = index">
-        <tr (click)="selectedAttr = attr">
-          <th scope="row">{{attr['orders']}}<!--{{i}}--></th>
-          <td>{{attr['value']}}</td>
-          <td>{{attr['label']}}</td>
-        </tr>
-        <tr [@openClose]="ifOpen(attr)">
-          <td colspan="3" *ngIf="attr === selectedAttr">
-          </td>
-        </tr>
-      </ng-container>
+    <ng-container *ngFor="let attr of attributes$ | async; let i = index">
+      <tr [ngStyle]="{'background-color': (selectToSwap === attr ? '#cccce9' : 'inherit')}">
+        <th scope="row">{{attr['orders']}}<!--{{i}}--></th>
+        <td>{{attr['value']}}</td>
+        <td>{{attr['label']}}</td>
+        <td>
+          <span class="badge bg-secondary btny"
+                (click)="selectToSwap(attr)"
+                *ngIf="(editMode | async) == false && (_selectToSwap == null || _selectToSwap === attr)"><mat-icon>swap_vert</mat-icon></span>
+          <span class="badge bg-secondary btny mx-1"
+                *ngIf="(editMode | async) == false && _selectToSwap == null"
+                (click)="changeToEdit(attr)"><mat-icon>edit</mat-icon></span>
+          <span class="badge bg-secondary btny" *ngIf="_selectToSwap != null && _selectToSwap != attr"><mat-icon>check</mat-icon></span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" [ngStyle]="{display: (attr['state$'] | async) ? 'table-cell' : 'none'}">
+          <div class="container-fluid m-0" *ngIf="attr['state$'] | async" [@dropDownAnimation]>
+            <form class="row g-3 menu-item">
+              <div class="col-12">
+                <label class="form-label">مقدار</label>
+                <input type="text" [(ngModel)]="attr['value']" [name]="'value'" class="form-control">
+              </div>
+              <div class="col-12">
+                <label class="form-label">برچسب</label>
+                <input type="text" [(ngModel)]="attr['label']" [name]="'label'" class="form-control" >
+              </div>
+              <div class="col-12">
+                <button class="btn btn-sm btn-outline-success">ذخیره</button>
+                <button type="button" class="btn btn-sm btn-outline-danger mx-1" (click)="cancelEdit(attr)">انصراف</button>
+              </div>
+            </form>
+          </div>
+        </td>
+      </tr>
     </ng-container>
+    <tr>
+      <td colspan="4">
+        <button class="btn btn-sm btn-outline-warning" (click)="addNewAttribute()">افزودن</button>
+      </td>
+    </tr>
     </tbody>
   </table>
 </div>
