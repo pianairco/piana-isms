@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AjaxCallService} from "../../../../../../../services/ajax-call.service";
 import {BehaviorSubject} from "rxjs";
 import {
@@ -54,6 +54,7 @@ export const DropDownAnimation = trigger("dropDownAnimation", [
 })
 export class TypeCreatorComponent implements OnInit {
   @Input() parameterTypeId: number;
+
   _attributes = [];
   attributes$ = new BehaviorSubject(this._attributes);
   _selectedAttr = null;
@@ -61,9 +62,22 @@ export class TypeCreatorComponent implements OnInit {
 
   constructor(private ajaxCall: AjaxCallService) { }
 
-  set attributes(_attributes) {
+  public set attributes(_attributes) {
     this._attributes = _attributes;
     this.attributes$.next(this._attributes);
+  }
+
+  public get attributes() {
+    let attrs: object[] = [];
+    this._attributes.forEach(attr => {
+      attrs.push({
+        'orders': attr['orders'],
+        'label': attr['label'],
+        'value': attr['value']
+      });
+    });
+    console.log(attrs);
+    return attrs;
   }
 
   async ngOnInit() {
@@ -94,7 +108,18 @@ export class TypeCreatorComponent implements OnInit {
     }
   }
 
-  editMode = new BehaviorSubject(false);
+  addNewAttribute() {
+    let attr = {"id": 0,
+      "consequenceParametersTypeId": 0,
+      "orders":this._attributes.length + 1,
+      "value": 0,
+      "label":"تغییر دهید"};
+    this.addState(attr);
+    this._attributes.push(attr);
+    this.attributes$.next(this._attributes);
+  }
+
+  editMode$ = new BehaviorSubject(false);
 
   changeToEdit(attr) {
     // this._selectedAttr = attr;
@@ -103,12 +128,12 @@ export class TypeCreatorComponent implements OnInit {
         a['state'].apply(a, [0]);
     })
     attr['state'].apply(attr, [1]);
-    this.editMode.next(true);
+    this.editMode$.next(true);
   }
 
   cancelEdit(attr) {
     attr['state'].apply(attr, [1]);
-    this.editMode.next(false);
+    this.editMode$.next(false);
     // this._selectedAttr = null;
   }
 
@@ -118,14 +143,5 @@ export class TypeCreatorComponent implements OnInit {
     } else {
       this._selectToSwap = null;
     }
-  }
-
-  addNewAttribute() {
-    this._attributes.push({"id": 0,
-      "consequenceParametersTypeId": 0,
-      "orders":this._attributes.length + 1,
-      "value": 0,
-      "label":""});
-    this.attributes$.next(this._attributes);
   }
 }

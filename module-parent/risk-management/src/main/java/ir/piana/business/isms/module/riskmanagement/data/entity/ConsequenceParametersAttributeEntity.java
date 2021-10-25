@@ -33,4 +33,10 @@ public class ConsequenceParametersAttributeEntity {
         this.value = value;
         this.label = label;
     }
+
+    public ConsequenceParametersAttributeEntity(long value, String label, Long orders) {
+        this.value = value;
+        this.label = label;
+        this.orders = orders;
+    }
 }

@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
@@ -7,6 +7,7 @@ import {ReloadForceService} from "../../../../../../services/reload-force.servic
 import {AjaxCallService} from "../../../../../../services/ajax-call.service";
 import {LoadingService} from "../../../../../../services/loading.service";
 import {BehaviorSubject} from "rxjs";
+import {TypeCreatorComponent} from "./type-creator/type-creator.component";
 
 @Component({
   templateUrl: './parameters-selector-dialog.component.html',
@@ -14,8 +15,9 @@ import {BehaviorSubject} from "rxjs";
 })
 export class ParametersSelectorDialogComponent implements OnInit {
   selectedTypeId = null;
+  @ViewChild(TypeCreatorComponent) typeCreatorComponent: TypeCreatorComponent;
 
-  constructor(private ajaxCall: AjaxCallService,
+  constructor(private ajaxService: AjaxCallService,
               public dialogRef: MatDialogRef<ParametersSelectorDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: object) {
     this.selectedTypeId = this.data['selectedTypeId']
@@ -31,10 +33,16 @@ export class ParametersSelectorDialogComponent implements OnInit {
     });
   }
 
-  saveAndSelect() {
-    this.dialogRef.close({
-      status: 1
-    });
+  async saveAndSelect() {
+    console.log(this.typeCreatorComponent.attributes)
+    let res = await this.ajaxService.saveAsync('api/modules/riskmanagement/asset-management/settings/consequence-parameters-type/create-new',
+        this.typeCreatorComponent.attributes);
+    if (res.status == 200 && res.data['code'] == 0) {
+      this.dialogRef.close({
+        status: 0,
+        parameterTypeId: res.data['data']['parameterTypeId']
+      });
+    }
   }
 
   onSelectParameterType(parameterTypeId) {

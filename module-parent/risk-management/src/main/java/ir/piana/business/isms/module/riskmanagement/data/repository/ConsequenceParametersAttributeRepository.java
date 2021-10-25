@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface ConsequenceParametersAttributeRepository extends JpaRepository<ConsequenceParametersAttributeEntity, Long> {
-    List<ConsequenceParametersAttributeEntity> findByConsequenceParametersTypeId(long consequenceParametersTypeId);
+    @Query(value = "SELECT new ir.piana.business.isms.module.riskmanagement.data.entity.ConsequenceParametersAttributeEntity(a.value, a.label, a.orders) FROM ConsequenceParametersAttributeEntity a, ConsequenceParametersTypeEntity t WHERE " +
+            " a.consequenceParametersTypeId = t.id and t.id = ?1 " +
+            " order by a.orders asc")
+    List<ConsequenceParametersAttributeEntity> findByConsequenceParametersTypeId(
+            @Param("consequenceParametersTypeId") long consequenceParametersTypeId);
     /*@Query(value = "SELECT a.ID, a.VALUE, a.LABEL FROM consequence_parameters_attribute a, consequence_parameters_type t, consequence_parameters c WHERE " +
             " c.consequence_parameters_type_id = t.id and a.consequence_parameters_type_id = t.id and c.id = :consequenceParametersId " +
             " order by a.orders asc",

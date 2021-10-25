@@ -1,5 +1,5 @@
 <h1 mat-dialog-title class="alert alert-primary text-center" >
-  <button type="button" class="btn-close float-end" aria-label="Close"></button>
+<!--  <button type="button" class="btn-close float-end" aria-label="Close"></button>-->
   <span *ngIf="!(readyToCreate | async)">{{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.PARAMETERS-SELECTOR-DIALOG.TITLE-SELECT' | translate}}</span>
   <span *ngIf="(readyToCreate | async)">{{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.PARAMETERS-SELECTOR-DIALOG.TITLE-CREATE' | translate}}</span>
 </h1>
@@ -14,6 +14,7 @@
                            (onSelect)="onSelectParameterType($event)"></app-type-selector>
 
         <app-type-creator
+          #typeCreator
           [parameterTypeId]="selectedTypeId"
           *ngIf="(readyToCreate | async) == true"></app-type-creator>
 
@@ -29,10 +30,13 @@
     <div class="row">
       <div class="col col-auto px-2">
         <button *ngIf="readyToCreate | async"
+                type="button"
                 class="btn btn-sm btn-outline-success" (click)="saveAndSelect()">ذخیره و انتخاب</button>
         <button *ngIf="readyToCreate | async"
+                type="button"
                 class="btn btn-sm btn-outline-danger mx-2" (click)="returnToSelect()">بازگشت</button>
         <button *ngIf="(readyToCreate | async) == false"
+                type="button"
                 class="btn btn-sm btn-outline-danger mx-2" (click)="closeClick()">انصراف</button>
       </div>
     </div>

@@ -8,14 +8,14 @@ import ir.piana.business.isms.module.riskmanagement.data.repository.ConsequenceP
 import ir.piana.business.isms.module.riskmanagement.data.repository.ConsequenceParametersRepository;
 import ir.piana.business.isms.module.riskmanagement.data.repository.ConsequenceParametersTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -65,5 +65,21 @@ public class ConsequenceParametersType {
     public ResponseEntity<ResponseModel> parameterTypeAttr(@PathVariable("id") long id) {
         List<ConsequenceParametersAttributeEntity> all = attributeRepository.findRelatedToParameter(id);
         return ResponseEntity.ok(ResponseModel.builder().code(0).data(all).build());
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @PostMapping(value = "create-new",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseModel> createNew(@RequestBody List<ConsequenceParametersAttributeEntity> attributes) {
+        ConsequenceParametersTypeEntity type = ConsequenceParametersTypeEntity.builder()
+                .level(attributes.size())
+                .build();
+
+        ConsequenceParametersTypeEntity save = typeRepository.save(type);
+        attributes.forEach(attr -> attr.setConsequenceParametersTypeId(save.getId()));
+        List<ConsequenceParametersAttributeEntity> consequenceParametersAttributeEntities = attributeRepository.saveAll(attributes);
+        return ResponseEntity.ok(ResponseModel.builder().code(0)
+                .data(Collections.singletonMap("parameterTypeId", save.getId())).build());
     }
 }

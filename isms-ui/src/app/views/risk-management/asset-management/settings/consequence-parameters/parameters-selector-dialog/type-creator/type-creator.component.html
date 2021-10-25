@@ -17,9 +17,9 @@
         <td>
           <span class="badge bg-secondary btny"
                 (click)="selectToSwap(attr)"
-                *ngIf="(editMode | async) == false && (_selectToSwap == null || _selectToSwap === attr)"><mat-icon>swap_vert</mat-icon></span>
+                *ngIf="(editMode$ | async) == false && (_selectToSwap == null || _selectToSwap === attr)"><mat-icon>swap_vert</mat-icon></span>
           <span class="badge bg-secondary btny mx-1"
-                *ngIf="(editMode | async) == false && _selectToSwap == null"
+                *ngIf="(editMode$ | async) == false && _selectToSwap == null"
                 (click)="changeToEdit(attr)"><mat-icon>edit</mat-icon></span>
           <span class="badge bg-secondary btny" *ngIf="_selectToSwap != null && _selectToSwap != attr"><mat-icon>check</mat-icon></span>
         </td>
