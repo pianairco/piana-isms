@@ -1,6 +1,7 @@
-<div class="container-fluid mx-sm-1 px-0 px-md-2">
-  <div class="row">
-    <div class="col col-sm-12 col-md-3">
+<div class="container-fluid mx-sm-1 px-0 px-md-2 overflow-hidden mt-4">
+  <div class="row gx-4">
+    <div class="col col-sm-12 col-md-3" >
+      <div class="m-2 p-2 piana-box">
       <div class="d-grid my-2">
         <button class="btn btn-outline-success" (click)="newParameter()">
           افزودن پارامتر جدید
@@ -21,9 +22,13 @@
           <button class="btn btn-outline-secondary">{{'RISK-MANAGEMENT.SETTINGS.CONSEQUENCE-PARAMETERS.' + (param[1]  | uppercase) | translate}}</button>
         </div>-->
       </ng-container>
+      </div>
     </div>
     <div class="col col-sm-12 col-md-9" id="router-outlet">
-      <router-outlet></router-outlet>
+      <div class="m-2 p-2 piana-box">
+        <router-outlet></router-outlet>
+      </div>
+
       <!--multi-->
       <!--<mat-accordion class="example-headers-align" *ngIf="parameters$ | async">
         <mat-expansion-panel *ngFor="let param of _parameters" (opened)="open(param[0])">

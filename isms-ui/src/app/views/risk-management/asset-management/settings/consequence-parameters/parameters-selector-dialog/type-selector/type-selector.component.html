@@ -2,11 +2,11 @@
   <div >
     <label id="example-radio-group-label" class="mb-2">انتخاب الگو</label>
     <div *ngFor="let typeKey of _parameters | keyvalue"
-         style="border: 1px solid #cdc2c2; padding: 6px; border-radius: 16px; margin-bottom: 8px;">
+         class="piana-box">
       <button [disabled]="parameterTypeId == typeKey.key"
               class="btn btn-sm btn-success my-1"
               (click)="select(typeKey.key)">انتخاب</button>
-      <button class="btn btn-sm btn-outline-secondary mx-1 my-1"
+      <button class="btn btn-sm btn-outline-secondary mx-2 my-1"
               (click)="requestToCreate(typeKey.key)">الگوی جدید</button>
       <div class="table-responsive">
         <table class="table table-striped">
