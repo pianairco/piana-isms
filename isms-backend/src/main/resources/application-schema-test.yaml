@@ -1,4 +1,0 @@
-database:
-  schema-list:
-    - 'jdbc:oracle:thin:@192.168.6.13:1521/dev12csrv.rh*t12alfetf01*t*b11459*375'
-    - 'jdbc:oracle:thin:@//192.168.6.13:1521/navsrv.rh*t12aatf01*t*b11421*338'

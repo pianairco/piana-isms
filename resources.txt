@@ -1,6 +1,0 @@
-https://www.infoworld.com/article/2077995/java-concurrency-asynchronous-processing-support-in-servlet-3-0.html?page=2
-
-https://dzone.com/articles/how-to-dynamically-create-a-component-in-angular
-
-### angular translate pipe error
-https://github.com/ngx-translate/core/issues/209
